@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const all = (await getCollection('posts')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const recent = all.slice(0, 4).map((p) => ({ slug: p.slug, title: p.data.title, pubDate: p.data.pubDate, image: p.data.image, imageAlt: p.data.imageAlt }));
+const categories = [...new Set(all.map((p) => p.data.category))].map((c) => ({ name: c, slug: slugify(c), count: all.filter((p) => p.data.category === c).length }));
+const tags = [...new Set(all.flatMap((p) => p.data.tags))];
+// Serializable index for client-side filtering (static build has no query params)
+const index = all.map((p) => ({
+  slug: p.slug,
+  title: p.data.title,
+  description: p.data.description,
+  category: p.data.category,
+  catSlug: slugify(p.data.category),
+  tags: p.data.tags,
+  image: p.data.image,
+  imageAlt: p.data.imageAlt ?? p.data.title,
+  date: fmt(p.data.pubDate),
+  views: p.data.views,
+}));
+---
+<BaseLayout title="Search — Shopping Gems" description="Search Shopping Gems deals and guides.">
+  <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / <span class="text-slate-700">Search</span></p>
+  <h1 id="search-title" class="text-3xl font-extrabold tracking-tight">Search</h1>
+  <form class="mt-4 flex max-w-md gap-2" action="/search" method="get" role="search">
+    <input id="search-input" type="search" name="s" value="" placeholder="Search deals, sales, guides…" aria-label="Search" class="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 outline-none focus:border-brand focus:ring-2 focus:ring-rose-200" />
+    <button type="submit" class="rounded-full bg-brand px-5 py-2.5 font-bold text-white hover:bg-brand-dark">Search</button>
+  </form>
+  <div class="mt-4 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <div class="min-w-0">
+      <p id="search-count" class="mb-3 text-sm text-slate-500"></p>
+      <div id="results" class="grid content-start gap-[18px] sm:grid-cols-2">
+        {all.map((p) => (<PostCard slug={p.slug} title={p.data.title} description={p.data.description} category={p.data.category} pubDate={p.data.pubDate} views={p.data.views} image={p.data.image} imageAlt={p.data.imageAlt} />))}
+      </div>
+      <p id="empty" class="hidden rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">No results. Try “sale”, “Amazon” or “deals”.</p>
+    </div>
+    <Sidebar recent={recent} categories={categories} tags={tags} />
+  </div>
+
+  <script define:vars={{ index }}>
+    const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const params = new URLSearchParams(location.search);
+    const raw = (params.get('s') ?? '').trim();
+    const q = raw.toLowerCase();
+    const box = document.getElementById('results');
+    const empty = document.getElementById('empty');
+    const title = document.getElementById('search-title');
+    const count = document.getElementById('search-count');
+    const input = document.getElementById('search-input');
+    if (input && raw) input.value = raw;
+    const card = (p) => `
+      <article class="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg">
+        ${p.image ? `<a class="block aspect-video overflow-hidden bg-slate-100" href="/posts/${p.slug}/"><img src="${p.image}" alt="${esc(p.imageAlt)}" loading="lazy" class="h-full w-full object-cover" /></a>` : ''}
+        <div class="flex flex-1 flex-col gap-2.5 p-4">
+          <a href="/category/${p.catSlug}/" class="w-fit rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white">${esc(p.category)}</a>
+          <h3 class="text-[18px] font-bold leading-snug"><a href="/posts/${p.slug}/">${esc(p.title)}</a></h3>
+          <div class="flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-slate-500"><span>${esc(p.date)}</span><span>0 Comments</span><span>${p.views} Views</span></div>
+          <p class="text-[14.5px] text-slate-600">${esc(p.description)}</p>
+          <p class="mt-auto pt-1"><a href="/posts/${p.slug}/" class="inline-block rounded-full bg-brand px-[18px] py-2.5 font-bold text-white">Read more</a></p>
+        </div>
+      </article>`;
+    if (q) {
+      const hits = index.filter((p) => (p.title + ' ' + p.description + ' ' + p.category + ' ' + p.tags.join(' ')).toLowerCase().includes(q));
+      title.innerHTML = `Results for &ldquo;${esc(raw)}&rdquo;`;
+      count.textContent = `${hits.length} ${hits.length === 1 ? 'result' : 'results'} found`;
+      box.innerHTML = hits.map(card).join('');
+      empty.classList.toggle('hidden', hits.length > 0);
+      document.title = `Search: ${raw} — Shopping Gems`;
+    } else {
+      count.textContent = `Showing all ${index.length} guides`;
+    }
+  </script>
+</BaseLayout>

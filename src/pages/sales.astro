@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const all = (await getCollection('posts')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = all.filter((p) => p.data.tags.includes('sale'));
+const recent = all.slice(0, 4).map((p) => ({ slug: p.slug, title: p.data.title, pubDate: p.data.pubDate, image: p.data.image, imageAlt: p.data.imageAlt }));
+const categories = [...new Set(all.map((p) => p.data.category))].map((c) => ({ name: c, slug: slugify(c), count: all.filter((p) => p.data.category === c).length }));
+const tags = [...new Set(all.flatMap((p) => p.data.tags))];
+---
+<BaseLayout title="Sales — Shopping Gems" description="Every sale calendar and coupon event: AliExpress, Amazon and more.">
+  <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / <span class="text-slate-700">Sales</span></p>
+  <h1 class="text-3xl font-extrabold tracking-tight">Sales</h1>
+  <p class="mt-2 text-slate-600">Sale calendars, expected dates and coupon-stacking tips — the Shopping Gems sales hub.</p>
+  <div class="mt-4 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <div class="grid min-w-0 content-start gap-[18px] sm:grid-cols-2">
+      {posts.map((p) => (<PostCard slug={p.slug} title={p.data.title} description={p.data.description} category={p.data.category} pubDate={p.data.pubDate} views={p.data.views} image={p.data.image} imageAlt={p.data.imageAlt} />))}
+    </div>
+    <Sidebar recent={recent} categories={categories} tags={tags} />
+  </div>
+</BaseLayout>

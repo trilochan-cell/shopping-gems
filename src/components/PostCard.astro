@@ -1,0 +1,30 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  pubDate: Date;
+  views: number;
+  image?: string;
+  imageAlt?: string;
+  cta?: string;
+}
+const { slug, title, description, category, pubDate, views, image, imageAlt, cta = 'Read more' } = Astro.props;
+const catSlug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const fmt = new Date(pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<article class="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg">
+  {image && (
+    <a class="block aspect-video overflow-hidden bg-slate-100" href={`/posts/${slug}/`}>
+      <img src={image} alt={imageAlt ?? title} loading="lazy" class="h-full w-full object-cover" />
+    </a>
+  )}
+  <div class="flex flex-1 flex-col gap-2.5 p-4">
+    <a href={`/category/${catSlug}/`} class="w-fit rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white hover:bg-brand-dark">{category}</a>
+    <h3 class="text-[18px] font-bold leading-snug"><a href={`/posts/${slug}/`} class="hover:text-brand">{title}</a></h3>
+    <div class="flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-slate-500"><span>{fmt}</span><span>0 Comments</span><span>{views} Views</span></div>
+    <p class="text-[14.5px] text-slate-600">{description}</p>
+    <p class="mt-auto pt-1"><a href={`/posts/${slug}/`} class="inline-block rounded-full bg-brand px-[18px] py-2.5 font-bold text-white hover:bg-brand-dark">{cta}</a></p>
+  </div>
+</article>

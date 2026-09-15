@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #d92632;
+  --color-brand-dark: #a50e1a;
+  --color-ink: #1d3557;
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
+}
+
+::selection { background: var(--color-brand); color: #fff; }
+
+/* Editorial headlines — serif for page/section titles only */
+main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
+
+/* ---------- Markdown post body (.prose-sg) ---------- */
+.prose-sg {
+  @apply text-[17px] leading-relaxed text-slate-700;
+  overflow-wrap: break-word;
+}
+
+/* Lead paragraph */
+.prose-sg > p:first-child {
+  @apply text-lg leading-relaxed text-slate-600;
+}
+
+/* Headings */
+.prose-sg h2 {
+  @apply mt-10 mb-4 border-b border-slate-100 pb-3 text-2xl font-extrabold tracking-tight text-slate-900 scroll-mt-24;
+}
+.prose-sg h3 {
+  @apply mt-8 mb-3 text-xl font-bold tracking-tight text-slate-900 scroll-mt-24;
+}
+.prose-sg h4 {
+  @apply mt-6 mb-2 text-lg font-bold text-slate-900 scroll-mt-24;
+}
+
+.prose-sg p { @apply my-4 leading-[1.8]; }
+
+/* Inline emphasis */
+.prose-sg strong { @apply font-bold text-slate-900; }
+.prose-sg em { @apply text-slate-800; }
+
+/* Links */
+.prose-sg a {
+  @apply font-medium text-brand underline decoration-rose-200 underline-offset-[3px] decoration-2 hover:decoration-brand;
+}
+
+/* Lists */
+.prose-sg ul, .prose-sg ol { @apply my-5 ml-1 space-y-2.5 pl-5 list-disc marker:text-brand; }
+.prose-sg ol { @apply list-decimal; }
+.prose-sg li { @apply leading-[1.75] pl-1; }
+.prose-sg li > ul, .prose-sg li > ol { @apply my-2; }
+
+/* Tip / quote callouts */
+.prose-sg blockquote {
+  @apply my-6 rounded-r-xl border-l-4 border-brand bg-rose-50 px-5 py-3 italic text-slate-700;
+}
+.prose-sg blockquote p { @apply my-2; }
+.prose-sg blockquote strong { @apply not-italic; }
+
+/* Tables — scrollable card on mobile */
+.prose-sg table {
+  @apply my-6 block w-full overflow-x-auto rounded-xl border border-slate-200 text-left text-[15px] shadow-sm;
+}
+.prose-sg thead { @apply bg-slate-900; }
+.prose-sg th {
+  @apply whitespace-nowrap px-4 py-3 font-bold text-white;
+}
+.prose-sg td {
+  @apply border-t border-slate-100 px-4 py-3 align-top leading-relaxed;
+}
+.prose-sg tbody tr:nth-child(even) { @apply bg-slate-50; }
+.prose-sg tbody tr:hover { @apply bg-rose-50/60; }
+/* First column acts as row label in spec/comparison tables */
+.prose-sg td:first-child { @apply font-semibold whitespace-nowrap text-slate-900; }
+
+/* Images & figures */
+.prose-sg img { @apply my-6 rounded-xl shadow-sm; }
+.prose-sg figure { @apply my-6; }
+.prose-sg figcaption { @apply mt-2 text-center text-sm text-slate-500; }
+
+/* Code (defensive — used by future posts) */
+.prose-sg code:not(pre code) {
+  @apply rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.85em] text-brand-dark;
+}
+.prose-sg pre {
+  @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm leading-relaxed text-slate-100;
+}
+.prose-sg pre code { @apply bg-transparent p-0 text-inherit; }
+
+/* Divider */
+.prose-sg hr { @apply my-8 border-slate-200; }

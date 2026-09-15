@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featured = posts.filter(p => p.data.featured).slice(0, 3);
+const latest = posts.slice(0, 6);
+const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<BaseLayout title="Shopping Gems — Best Online Shopping Blogs, Coupons & Deals" description="Shopping Gems is the best shopping blog: AliExpress & Amazon sale dates, coupons, deals and honest shopping guides.">
+  <section class="border-b border-slate-100 bg-stone-50 py-7">
+    <div class="grid gap-[18px] lg:grid-cols-[1.2fr_0.8fr]">
+      {featured[0] && (
+        <a href={`/posts/${featured[0].slug}/`} class="relative flex min-h-[340px] items-end overflow-hidden rounded-xl bg-neutral-900">
+          <img class="absolute inset-0 h-full w-full object-cover opacity-85" src={featured[0].data.image} alt={featured[0].data.imageAlt ?? featured[0].data.title} loading="eager" />
+          <div class="relative w-full bg-gradient-to-t from-black/75 to-transparent p-[22px] text-white">
+            <span class="inline-block rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white">{featured[0].data.category}</span>
+            <h2 class="my-2.5 text-2xl font-extrabold tracking-tight md:text-3xl">{featured[0].data.title}</h2>
+            <div class="flex flex-wrap gap-3 text-[13px] text-rose-50"><span>{fmt(featured[0].data.pubDate)}</span><span>{featured[0].data.views} Views</span></div>
+            <p class="mt-2 text-[15px] text-slate-100">{featured[0].data.description}</p>
+          </div>
+        </a>
+      )}
+      <div class="grid gap-[18px]">
+        {featured.slice(1).map((p) => (
+          <a href={`/posts/${p.slug}/`} class="relative flex min-h-[160px] items-end overflow-hidden rounded-xl bg-neutral-900">
+            <img class="absolute inset-0 h-full w-full object-cover opacity-85" src={p.data.image} alt={p.data.imageAlt ?? p.data.title} loading="lazy" />
+            <div class="relative w-full bg-gradient-to-t from-black/75 to-transparent p-[18px] text-white">
+              <span class="inline-block rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white">{p.data.category}</span>
+              <h3 class="my-2 text-lg font-bold leading-snug">{p.data.title}</h3>
+              <div class="flex flex-wrap gap-3 text-[13px] text-rose-50"><span>{fmt(p.data.pubDate)}</span><span>{p.data.views} Views</span></div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="mb-4 mt-[34px] flex items-center justify-between">
+    <h2 class="text-[26px] font-extrabold tracking-tight">Latest Posts</h2>
+    <a href="/deals" class="rounded-full border border-slate-200 bg-white px-[18px] py-2.5 font-bold text-ink hover:border-brand hover:text-brand">View all deals</a>
+  </div>
+  <div class="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+    {latest.map((p) => (
+      <PostCard slug={p.slug} title={p.data.title} description={p.data.description} category={p.data.category} pubDate={p.data.pubDate} views={p.data.views} image={p.data.image} imageAlt={p.data.imageAlt} />
+    ))}
+  </div>
+
+  <section class="mt-[34px] overflow-hidden rounded-xl border border-slate-200 bg-stone-50 p-[22px]">
+    <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="text-[12px] font-bold uppercase tracking-[2px] text-slate-500">Hand-picked daily</p>
+        <h2 class="mt-1 text-[26px] font-extrabold tracking-tight">Best Amazon Deals You Can't Miss!</h2>
+      </div>
+      <a href="/deals" class="rounded-full border border-slate-200 bg-white px-[18px] py-2.5 text-sm font-bold text-ink hover:border-brand hover:text-brand">View all deals →</a>
+    </div>
+    <div class="grid gap-[18px] md:grid-cols-3">
+      <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
+        <a href="/deals" class="relative block aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=800&q=80&auto=format&fit=crop" alt="Wrapped gift boxes under $20" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <span class="absolute left-3 top-3 rounded-full bg-brand px-3 py-1 text-[12px] font-bold uppercase tracking-wide text-white">Under $20</span>
+        </a>
+        <div class="flex flex-1 flex-col p-5">
+          <h3 class="text-lg font-extrabold leading-snug"><a href="/deals" class="group-hover:text-brand">Small Gifts Under $20</a></h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">Thoughtful birthday, festive &amp; return gifts that look premium — all under twenty bucks.</p>
+          <p class="mt-auto pt-4"><a href="/deals" class="inline-block rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white group-hover:bg-brand">Shop gifts →</a></p>
+        </div>
+      </article>
+      <article class="group flex flex-col overflow-hidden rounded-xl border-2 border-brand bg-white transition hover:-translate-y-1 hover:shadow-xl">
+        <a href="/deals" class="relative block aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80&auto=format&fit=crop" alt="Clothing store rack with sale discounts" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <span class="absolute left-3 top-3 rounded-full bg-neutral-900 px-3 py-1 text-[12px] font-bold uppercase tracking-wide text-white">Ending soon</span>
+        </a>
+        <div class="flex flex-1 flex-col p-5">
+          <h3 class="text-lg font-extrabold leading-snug"><a href="/deals" class="group-hover:text-brand">Lightning Deals</a></h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">Time-bound price drops on tech, home &amp; fashion. When the timer hits zero, so does the price.</p>
+          <p class="mt-auto pt-4"><a href="/deals" class="inline-block rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white hover:bg-brand-dark">Grab deals →</a></p>
+        </div>
+      </article>
+      <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
+        <a href="/deals" class="relative block aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80&auto=format&fit=crop" alt="Open shop sign — trending products right now" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <span class="absolute left-3 top-3 rounded-full bg-emerald-700 px-3 py-1 text-[12px] font-bold uppercase tracking-wide text-white">Trending</span>
+        </a>
+        <div class="flex flex-1 flex-col p-5">
+          <h3 class="text-lg font-extrabold leading-snug"><a href="/deals" class="group-hover:text-brand">Trending Deals</a></h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-slate-600">The most-clicked, most-wishlisted finds our readers can't stop buying this week.</p>
+          <p class="mt-auto pt-4"><a href="/deals" class="inline-block rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white group-hover:bg-brand">Explore →</a></p>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

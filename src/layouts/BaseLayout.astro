@@ -1,0 +1,117 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: string;
+  pubDate?: Date | string;
+  tags?: string[];
+  canonical?: string;
+}
+const { title, description, image = '/favicon.svg', type = 'website', pubDate, tags = [], canonical } = Astro.props;
+const site = 'http://localhost:4321';
+const url = canonical ?? `${site}${Astro.url.pathname}`;
+const fullTitle = title.includes('Shopping Gems') ? title : `${title} | Shopping Gems`;
+const path = Astro.url.pathname;
+const linkCls = (href: string, exact = false) =>
+  `hover:text-brand ${exact ? path === href : path.startsWith(href) ? 'text-brand' : 'text-slate-700'}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={url} />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content="Shopping Gems" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url} />
+  <meta property="og:image" content={image.startsWith('http') ? image : `${site}${image}`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image.startsWith('http') ? image : `${site}${image}`} />
+  {pubDate && <meta property="article:published_time" content={new Date(pubDate).toISOString()} />}
+  {tags.map((t) => <meta property="article:tag" content={t} />)}
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Shopping Gems RSS Feed" href="/rss.xml" />
+  <meta name="theme-color" content="#e63946" />
+  <meta property="og:locale" content="en_US" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": type === 'article' ? "BlogPosting" : "WebSite",
+    "name": fullTitle,
+    "headline": fullTitle,
+    "description": description,
+    "url": url,
+    ...(pubDate ? { datePublished: new Date(pubDate).toISOString() } : {}),
+    "publisher": { "@type": "Organization", "name": "Shopping Gems" }
+  })} />
+  <slot name="head" />
+</head>
+<body class="bg-white font-sans text-slate-800 antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[99] focus:bg-white focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+  <div class="bg-neutral-900 text-[13px] text-white">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-2">
+      <span>Shopping Gems — Best Online Shopping Blogs, Coupons, Deals &amp; Promo Codes</span>
+      <a href="/deals" class="font-semibold text-amber-300 hover:text-amber-200">Today's Deals →</a>
+    </div>
+  </div>
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5">
+      <a class="flex items-center gap-2.5 text-[26px] font-black tracking-tight" href="/" aria-label="Shopping Gems home">
+        <span class="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white"><Icon name="diamond" cls="h-5 w-5" /></span>
+        <span class="font-display leading-none">Shopping Gems<span class="mt-1 block text-[11px] font-semibold uppercase tracking-[2px] text-slate-500">Best Shopping Blog</span></span>
+      </a>
+      <nav class="hidden flex-wrap gap-[18px] text-[15px] font-semibold md:flex" aria-label="Primary">
+        <a href="/" class={linkCls('/', true)}>Home</a>
+        <a href="/sales" class={linkCls('/sales')}>Sales</a>
+        <a href="/deals" class={linkCls('/deals')}>Deals</a>
+        <a href="/contact" class={linkCls('/contact')}>Contact Us</a>
+        <a href="/about" class={linkCls('/about')}>About Us</a>
+        <a href="/privacy" class={linkCls('/privacy')}>Privacy</a>
+      </nav>
+      <form class="hidden sm:block" action="/search" method="get" role="search">
+        <input type="search" name="s" placeholder="Search deals…" aria-label="Search" class="min-w-[200px] rounded-full border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-rose-200" />
+      </form>
+    </div>
+    <nav class="flex gap-4 overflow-x-auto border-t border-slate-200 px-5 py-2.5 text-sm font-semibold md:hidden" aria-label="Mobile">
+      <a href="/">Home</a><a href="/sales">Sales</a><a href="/deals">Deals</a><a href="/contact">Contact</a><a href="/about">About</a><a href="/privacy">Privacy</a>
+    </nav>
+  </header>
+  <main id="main" class="mx-auto max-w-6xl px-5"><slot /></main>
+  <footer class="mt-10 bg-neutral-900 pb-[18px] pt-9 text-slate-300">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="grid gap-5 md:grid-cols-[1.2fr_1fr_1fr]">
+        <div>
+          <a class="flex items-center gap-2.5 text-2xl font-black text-white" href="/">
+            <span class="grid h-10 w-10 place-items-center rounded-lg bg-brand text-white"><Icon name="diamond" cls="h-5 w-5" /></span>
+            <span class="font-display leading-none">Shopping Gems<span class="mt-1 block text-[11px] font-semibold uppercase tracking-[2px] text-slate-400">Best Shopping Blog</span></span>
+          </a>
+          <p class="mt-3 max-w-[36ch]">Coupons, sales calendars, and honest shopping guides — never pay full price again.</p>
+        </div>
+        <div>
+          <h4 class="mb-2.5 font-bold text-white">On the blog</h4>
+          <p class="space-y-1.5 leading-7"><a class="hover:text-white" href="/">Home</a><br /><a class="hover:text-white" href="/sales">Sales</a><br /><a class="hover:text-white" href="/deals">Deals</a><br /><a class="hover:text-white" href="/contact">Contact Us</a><br /><a class="hover:text-white" href="/about">About Us</a><br /><a class="hover:text-white" href="/privacy">Privacy Policy</a></p>
+        </div>
+        <div>
+          <h4 class="mb-2.5 font-bold text-white">Explore</h4>
+          <p class="space-y-1.5 leading-7"><a class="hover:text-white" href="/category/online-shopping">Online Shopping</a><br /><a class="hover:text-white" href="/category/gift-guides">Gift Guides</a><br /><a class="hover:text-white" href="/category/travel">Travel</a><br /><a class="hover:text-white" href="/category/marketing">Marketing</a><br /><a class="hover:text-white" href="/search?s=Deals">Search Deals</a></p>
+        </div>
+      </div>
+      <div class="mt-[22px] flex flex-wrap justify-between gap-2 border-t border-neutral-700 pt-3.5 text-[13px]">
+        <span><a href="/" class="font-bold text-white">Shopping Gems</a> © Copyright 2026. All Rights Reserved.</span>
+        <a href="#main" class="hover:text-white">Scroll to top ↑</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
