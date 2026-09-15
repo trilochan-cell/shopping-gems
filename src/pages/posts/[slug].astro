@@ -32,8 +32,10 @@ const older = idx < all.length - 1 ? all[idx + 1] : null;
 
 const related = all.filter((p) => p.slug !== slug && p.data.category === post.data.category).slice(0, 3);
 const pageUrl = `http://localhost:4321/posts/${post.slug}/`;
+const wordCount = post.body.trim().split(/\s+/).length
+  + post.data.faq.reduce((n, f) => n + f.question.trim().split(/\s+/).length + f.answer.trim().split(/\s+/).length, 0);
 ---
-<BaseLayout title={post.data.title} description={post.data.description} image={post.data.image} type="article" pubDate={post.data.pubDate} tags={post.data.tags}>
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.image} type="article" pubDate={post.data.pubDate} dateModified={post.data.updatedDate} section={post.data.category} wordCount={wordCount} tags={post.data.tags}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -44,6 +46,17 @@ const pageUrl = `http://localhost:4321/posts/${post.slug}/`;
         { "@type": "ListItem", "position": 3, "name": post.data.title }
       ]
     })} />
+    {post.data.faq.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": post.data.faq.map((f) => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+        }))
+      })} />
+    )}
   </Fragment>
   <!-- Breadcrumb -->
   <nav aria-label="Breadcrumb" class="my-[18px] flex flex-wrap items-center gap-1.5 text-[13px] text-slate-500">
@@ -84,6 +97,20 @@ const pageUrl = `http://localhost:4321/posts/${post.slug}/`;
       )}
 
       <div class="prose-sg mt-2"><Content /></div>
+
+      {post.data.faq.length > 0 && (
+        <section aria-label="Frequently asked questions" class="mt-8 border-t border-slate-100 pt-6">
+          <h2 class="text-2xl font-extrabold tracking-tight">Frequently asked questions</h2>
+          <div class="mt-4 space-y-3">
+            {post.data.faq.map((f) => (
+              <div class="rounded-xl border border-slate-200 bg-slate-50/60 px-5 py-4">
+                <h3 class="text-[17px] font-bold leading-snug text-slate-900">{f.question}</h3>
+                <p class="mt-1.5 text-[15.5px] leading-relaxed text-slate-600">{f.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <!-- Tags -->
       <div class="mt-8 border-t border-slate-100 pt-5">

@@ -25,7 +25,8 @@ intent + why it fits the site's categories) and ask which to write.
 
 - `##` sections that mirror search intent (dates → what to expect → how-to →
   mistakes → FAQ). One comparison/table section wherever two+ options exist.
-- 3–4 FAQ questions (`###`) with 1–3 sentence answers (featured-snippet bait).
+- 5 FAQ questions in frontmatter `faq:` (40–60 word plain-text answers, no
+  links — they render the FAQ block AND the `FAQPage` schema automatically).
 - ≥3 internal links mapped to REAL targets: `Glob`/`Grep` slugs first. Prefer
   hub pages (`/sales`, `/deals`), same-category posts, and one category archive.
 
@@ -53,14 +54,18 @@ image: "/images/<slug>/hero.jpg"
 imageAlt: "Descriptive alt text with keyword"
 views: 0
 featured: false                  # true only for hero-worthy sale guides (≤3 site-wide)
+updatedDate: YYYY-MM-DD          # = pubDate for new posts; bump on rewrites
+faq:                             # 5 Q&As, plain text, no links (block + schema auto)
+  - question: "…?"
+    answer: "40–60 words."
 ```
 
-## 5. Body template (400–700 words)
+## 5. Body template (**≥2500 words** body + FAQ answers)
 
 1. Lead paragraph: hook + primary keyword in first 100 words.
 2. `##` keyword sections; exactly one `table` where comparison fits.
 3. Numbered how-to or tips (`1.`); short "Mistakes to avoid" list where useful.
-4. `###` FAQ ×3–4.
+4. NO faq in the body — it lives in frontmatter (auto-rendered + schema).
 5. Closing line linking to `/deals`, `/sales`, or the category archive.
 6. No emojis (content exception: ★ ratings only). No invented facts.
 

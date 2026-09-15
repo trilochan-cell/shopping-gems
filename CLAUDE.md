@@ -41,18 +41,22 @@ rehype plugin `src/plugins/rehype-table-scope.mjs` (adds `scope="col"` to `<th>`
 title: "Exact headline (becomes URL via slug = filename)"
 description: "≤160 chars, keyword near front, no clickbait"   # meta + OG + cards
 pubDate: 2026-07-20
+updatedDate: 2026-09-15              # bump on every substantial rewrite (feeds dateModified)
 category: "Online Shopping | Gift Guides | Travel | Marketing"  # new value = new archive page, auto-routed
 tags: ["sale", "amazon"]          # new value = new tag page, auto-routed
 image: "/images/<slug>/hero.jpg"  # hero + OG image + card thumbnail
 imageAlt: "Descriptive alt text"
 views: 0                          # seed plausible number for new posts
 featured: false                   # true = homepage hero (keep ≤3 featured)
+faq:                              # 5 Q&As → rendered FAQ block + FAQPage JSON-LD (plain text, no links)
+  - question: "…?"
+    answer: "40–60 words."
 ```
 
-Body conventions: lead paragraph first · `##` sections with keyword headings ·
+Body conventions: **≥2500 words** (body + FAQ answers) · lead paragraph first · `##` sections with keyword headings ·
 one comparison/table section where it fits (gets card styling + `scope` free) ·
-numbered how-to · "Mistakes to avoid" where useful · `###`-style FAQ with 3–4
-short Q&As (featured-snippet bait) · **≥3 internal links** to real posts/pages
+numbered how-to · "Mistakes to avoid" where useful · FAQ lives in frontmatter
+(`faq:` — auto-rendered + schema), never duplicated in the body · **≥3 internal links** to real posts/pages
 (slugs live in `src/content/posts/`, hubs at `/sales`, `/deals`, categories).
 
 ## Design system (non-negotiable)
@@ -71,8 +75,10 @@ short Q&As (featured-snippet bait) · **≥3 internal links** to real posts/page
 ## SEO standards (every page/post)
 
 Unique `<title>` + meta description · canonical · robots `index,follow` · OG +
-Twitter cards · JSON-LD (`BlogPosting`+`BreadcrumbList` on posts, `AboutPage`/
-`ContactPage` on those pages, `WebSite` globally — use BaseLayout's `slot="head"`)
+Twitter cards · JSON-LD (perfected `BlogPosting` — author, publisher+logo,
+`dateModified`, section, keywords, wordCount — plus `BreadcrumbList` and
+frontmatter-driven `FAQPage` on posts; `AboutPage`/`ContactPage` on those pages,
+`WebSite` globally — use BaseLayout's `slot="head"`)
 · single `h1`, no skipped heading levels · descriptive alts · sitemap + RSS ·
 internal links on every post · FAQ block on guides.
 
