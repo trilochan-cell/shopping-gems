@@ -30,7 +30,7 @@ const ticker = posts.slice(0, 5);
   <section class="py-5">
     <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
       {featured[0] && (
-        <article>
+        <article class="flex h-full flex-col justify-center">
           <a href={`/posts/${featured[0].slug}/`} class="group grid gap-4 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
             <span class="block overflow-hidden rounded-xl">
               <img class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03]" src={featured[0].data.image} alt={featured[0].data.imageAlt ?? featured[0].data.title} loading="eager" />
@@ -44,11 +44,11 @@ const ticker = posts.slice(0, 5);
           </a>
         </article>
       )}
-      <aside aria-label="Top stories" class="h-fit rounded-xl border border-slate-200 bg-white">
+      <aside aria-label="Top stories" class="flex h-full flex-col rounded-xl border border-slate-200 bg-white">
         <h2 class="border-b-2 border-neutral-900 px-4 pb-2 pt-3 font-display text-lg font-black">Top Stories</h2>
-        <div class="divide-y divide-slate-100 px-4">
+        <div class="flex flex-1 flex-col divide-y divide-slate-100 px-4">
           {featured.slice(1).concat(latest.filter((p) => !featured.map((f) => f.slug).includes(p.slug)).slice(0, 1)).slice(0, 3).map((p) => (
-            <a href={`/posts/${p.slug}/`} class="group flex items-center gap-3 py-2.5">
+            <a href={`/posts/${p.slug}/`} class="group flex flex-1 items-center gap-3 py-2.5">
               <img src={p.data.image} alt={p.data.imageAlt ?? p.data.title} loading="lazy" class="h-14 w-[76px] shrink-0 rounded-lg object-cover" />
               <span class="min-w-0">
                 <span class="block text-[10.5px] font-black uppercase tracking-[1.5px] text-brand">{p.data.category}</span>
