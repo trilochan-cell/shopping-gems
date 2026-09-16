@@ -80,6 +80,9 @@ def main() -> None:
             fail(f'{where}: brand_slug "{slug}" must be lowercase letters/numbers/hyphens')
         if not r['brand_website'].startswith(('http://', 'https://')):
             fail(f'{where}: brand_website must start with http(s)://')
+        for urlcol in ('brand_affiliate_url', 'coupon_affiliate_url'):
+            if r.get(urlcol, '') and not r[urlcol].startswith(('http://', 'https://')):
+                fail(f'{where}: {urlcol} must start with http(s)://')
         ctype = r['coupon_type'].lower()
         if ctype not in ('code', 'deal'):
             fail(f'{where}: coupon_type must be "code" or "deal"')
@@ -108,6 +111,7 @@ def main() -> None:
         brands.setdefault(slug, {
             'name': r['brand_name'], 'tagline': r['brand_tagline'],
             'description': r['brand_description'], 'website': r['brand_website'],
+            'affiliate': r.get('brand_affiliate_url', ''),
             'logo': r.get('brand_logo', ''), 'category': r.get('brand_category', 'Shopping') or 'Shopping',
             'rating': rating, 'reviews': r.get('brand_reviews', ''), 'max': r['brand_max_discount'],
             'faqs': faqs,
@@ -134,6 +138,8 @@ def main() -> None:
     for slug, b in brands.items():
         lines = ['---', f'name: {yq(b["name"])}', f'tagline: {yq(b["tagline"])}',
                  f'description: {yq(b["description"])}', f'website: {yq(b["website"])}']
+        if b['affiliate']:
+            lines.append(f'affiliate_url: {yq(b["affiliate"])}')
         if b['logo']:
             lines.append(f'logo: {yq(b["logo"])}')
         lines += [f'category: {yq(b["category"])}']
@@ -160,6 +166,8 @@ def main() -> None:
                  f'badge: {yq(c["coupon_badge"])}']
         if c['_type'] == 'code':
             lines.append(f'code: {yq(c["coupon_code"])}')
+        if c.get('coupon_affiliate_url', ''):
+            lines.append(f'affiliate_url: {yq(c["coupon_affiliate_url"])}')
         if c['_expiry']:
             lines.append(f'expiry: {c["_expiry"]}')
         if c['_verified']:

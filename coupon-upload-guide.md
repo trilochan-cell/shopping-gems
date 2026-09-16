@@ -13,7 +13,8 @@ page + offer cards. Open the CSV in Excel/Sheets; save as CSV UTF-8.
 | `brand_name` | yes | Display name, e.g. `IonBottles`. |
 | `brand_tagline` | yes | One line, e.g. `Molecular hydrogen water bottles`. |
 | `brand_description` | yes | 2–3 sentences: what they sell, bestsellers, shipping/returns highlights. |
-| `brand_website` | yes | Full URL with `https://`. Used for Go to Store / Get Deal buttons. |
+| `brand_website` | yes | Full URL with `https://`. The merchant homepage (fallback link). |
+| `brand_affiliate_url` | no | Your tracked affiliate link for this brand (Impact, AvantLink, etc.). Used for **every** Go to Store / Get Deal / Show Code button when set; falls back to `brand_website`. |
 | `brand_logo` | no | Path like `/images/brands/acme.svg` (send the file too) or an `https://` image URL. Leave blank for an automatic letter tile. |
 | `brand_category` | no | Defaults to `Shopping`. |
 | `brand_rating` / `brand_reviews` | no | **Only from a real source** (Trustpilot, Google). Leave blank if unknown — stars are hidden rather than invented. |
@@ -30,6 +31,7 @@ page + offer cards. Open the CSV in Excel/Sheets; save as CSV UTF-8.
 | `coupon_type` | yes | `code` (shopper types something) or `deal` (automatic price/drop). |
 | `coupon_badge` | yes | Left box text: `20% OFF`, `Free Shipping`, `$10 OFF`, `Free Gift`. |
 | `coupon_code` | if `code` | The exact code, e.g. `SAVE20`. **Only codes published by the merchant.** Never invent one. |
+| `coupon_affiliate_url` | no | Per-offer tracked link (overrides the brand link for this card only). Falls back to `brand_affiliate_url`, then `brand_website`. |
 | `coupon_expiry` | no | `YYYY-MM-DD`. Blank = ongoing offer (no fake deadline). Past dates auto-move to Expired on rebuild. |
 | `coupon_verified` | no | `YYYY-MM-DD` you last confirmed it works. Shown on the card — keep honest. |
 | `coupon_uses` | no | Shopper count from real data only; blank hides the counter. |
@@ -41,7 +43,7 @@ page + offer cards. Open the CSV in Excel/Sheets; save as CSV UTF-8.
 
 ```
 brand_slug,brand_name,brand_tagline,brand_description,brand_website,brand_logo,brand_category,brand_rating,brand_reviews,brand_max_discount,brand_faq_q1,brand_faq_a1,coupon_slug,coupon_title,coupon_description,coupon_type,coupon_badge,coupon_code,coupon_expiry,coupon_verified,coupon_uses,coupon_terms,coupon_labels,coupon_featured
-acme-tea,Acme Tea,Small-batch loose-leaf tea,Acme Tea sells single-origin loose-leaf teas and brewing kits with free shipping over $40.,https://example.com/acme,,Food & Drink,,,,25%,How do I use an Acme Tea code?,Add tea to your cart and paste the code in the discount box at checkout before paying.,,,,,,,,,acme-tea-25-off,25% Off Your First Order,New customers save 25% on their first tea order.,code,25% OFF,WELCOME25,2026-12-31,2026-09-16,,First orders only | Excludes gift cards,First Order | Verified,yes
+acme-tea,Acme Tea,Small-batch loose-leaf tea,Acme Tea sells single-origin loose-leaf teas and brewing kits with free shipping over $40.,https://example.com/acme,,Food & Drink,,,,25%,How do I use an Acme Tea code?,Add tea to your cart and paste the code in the discount box at checkout before paying.,,,,,,,,,acme-tea-25-off,25% Off Your First Order,New customers save 25% on their first tea order.,code,25% OFF,WELCOME25,,2026-12-31,2026-09-16,,First orders only | Excludes gift cards,First Order | Verified,yes
 ```
 
 ## Rules that keep pages trustworthy

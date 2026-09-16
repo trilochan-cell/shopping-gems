@@ -5,7 +5,8 @@ argument-hint: <brand name + website>
 
 Scaffold a coupon page for: **$ARGUMENTS**
 
-1. Ask me for (or confirm from the argument): brand name, website URL, tagline,
+1. Ask me for (or confirm from the argument): brand name, website URL, affiliate
+   URL (brand-level tracked link; optional per-offer overrides), tagline,
    category, logo file (or generate a flat placeholder SVG in
    `public/images/brands/`), 2–4 REAL verified offers (title, code-or-deal,
    discount, expiry, terms). **Never invent codes, discounts, or "verified"

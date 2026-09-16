@@ -98,6 +98,8 @@ internal links on every post · FAQ block on guides.
   One file = one page at `/coupons/<slug>/` (auto-routed). Optional
   `logo: "/images/brands/<slug>.svg"` (square SVG/PNG) shown in the hero,
   directory, and similar-brand cards — otherwise a letter tile renders.
+- Outbound links resolve per offer: coupon `affiliate_url` → brand
+  `affiliate_url` → plain `website` (helpers in `[brand].astro`).
 - `src/content/coupons/<brand>-<offer>.md` — one offer per file:
   `brand` (brand slug) · `title` · `description` · `type: code|deal` ·
   `badge: "20% OFF"` (left box) · `code` (required for `type: code`) ·

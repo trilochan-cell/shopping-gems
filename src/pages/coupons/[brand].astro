@@ -34,6 +34,10 @@ const stars = brand.data.rating != null
   ? '★'.repeat(Math.round(brand.data.rating)) + '☆'.repeat(5 - Math.round(brand.data.rating))
   : '';
 const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
+// Outbound chain: per-offer affiliate link → brand affiliate link → plain website
+const brandStoreUrl = brand.data.affiliate_url ?? brand.data.website;
+const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
+  c.data.affiliate_url ?? brand.data.affiliate_url ?? brand.data.website;
 ---
 <BaseLayout
   title={`${brand.data.name} Promo Codes & Coupons — Up to ${brand.data.maxDiscount} Off`}
@@ -110,7 +114,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
               <span class="flex items-center gap-1 font-semibold text-emerald-700"><Icon name="check" cls="h-4 w-4" /> {active.length} verified offers</span>
             </div>
           </div>
-          <a href={brand.data.website} target="_blank" rel="nofollow sponsored noopener" class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white hover:bg-brand-dark">Go to Store →</a>
+          <a href={brandStoreUrl} target="_blank" rel="nofollow sponsored noopener" class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white hover:bg-brand-dark">Go to Store →</a>
         </div>
         <p class="mt-4 border-t border-slate-100 pt-4 text-[15px] leading-relaxed text-slate-600">{brand.data.description}</p>
       </section>
@@ -163,13 +167,13 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
                       data-title={c.data.title}
                       data-badge={c.data.badge}
                       data-expiry={c.data.expiry ? fmt(c.data.expiry) : ''}
-                      data-store={brand.data.website}
+                      data-store={offerStoreUrl(c)}
                     >Show Code</button>
                     <noscript><p class="mt-2 rounded-lg border-2 border-dashed border-brand bg-rose-50 p-2 text-center font-mono text-sm font-bold text-brand-dark">Code: {c.data.code}</p></noscript>
                   </div>
                 ) : (
                   <a
-                    href={brand.data.website}
+                    href={offerStoreUrl(c)}
                     target="_blank"
                     rel="nofollow sponsored noopener"
                     class="coupon-open block w-full rounded-lg bg-neutral-900 px-5 py-3 text-center text-sm font-bold text-white hover:bg-ink"
@@ -178,7 +182,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
                     data-title={c.data.title}
                     data-badge={c.data.badge}
                     data-expiry={c.data.expiry ? fmt(c.data.expiry) : ''}
-                    data-store={brand.data.website}
+                    data-store={offerStoreUrl(c)}
                   >Get Deal →</a>
                 )}
               </div>
@@ -283,7 +287,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
         </div>
         <p id="coupon-modal-deal-note" class="mt-4 hidden rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">This deal applies automatically at the store — no code needed.</p>
         <p class="mt-4 text-[13px] text-slate-500">The {brand.data.name} store opened in a new tab. <span id="coupon-modal-expiry" class="font-semibold text-slate-600"></span></p>
-        <a id="coupon-modal-store" href={brand.data.website} target="_blank" rel="nofollow sponsored noopener" class="mt-3 inline-block w-full rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white hover:bg-brand-dark">Continue to Store →</a>
+        <a id="coupon-modal-store" href={brandStoreUrl} target="_blank" rel="nofollow sponsored noopener" class="mt-3 inline-block w-full rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white hover:bg-brand-dark">Continue to Store →</a>
         <button id="coupon-modal-link" type="button" class="mt-2 w-full text-[13px] font-semibold text-slate-500 hover:text-brand">Copy link to this offer</button>
       </div>
     </div>
