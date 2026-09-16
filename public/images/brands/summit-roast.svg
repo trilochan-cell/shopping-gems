@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="24" fill="#7c2d12"/>
+  <path d="M40 52h44v22a20 20 0 01-20 20H60a20 20 0 01-20-20V52z" fill="#fff"/>
+  <path d="M84 56h8a8 8 0 010 16h-9" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M52 40c0-6 6-6 6-12M66 40c0-6 6-6 6-12" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <text x="64" y="114" text-anchor="middle" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#fff" letter-spacing="1">SUMMIT &amp; ROAST</text>
+</svg>

@@ -25,6 +25,7 @@ const brands = defineCollection({
     tagline: z.string(),
     description: z.string(),
     website: z.string().url(),
+    logo: z.string().optional(),
     category: z.string().default('Shopping'),
     rating: z.number().min(0).max(5).default(4.5),
     reviews: z.number().default(0),

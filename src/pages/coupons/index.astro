@@ -41,7 +41,11 @@ const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
         return (
           <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
             <div class="flex items-center gap-3">
-              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand font-display text-2xl font-bold text-white" aria-hidden="true">{b.data.name.charAt(0)}</span>
+              {b.data.logo ? (
+                <img src={b.data.logo} alt={`${b.data.name} logo`} width="48" height="48" loading="lazy" class="h-12 w-12 shrink-0 rounded-lg border border-slate-200 bg-white object-contain" />
+              ) : (
+                <span class="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand font-display text-2xl font-bold text-white" aria-hidden="true">{b.data.name.charAt(0)}</span>
+              )}
               <div class="min-w-0">
                 <h2 class="font-sans! text-lg font-extrabold leading-tight"><a href={`/coupons/${b.slug}/`} class="hover:text-brand">{b.data.name}</a></h2>
                 <p class="truncate text-[13px] text-slate-500">{b.data.tagline}</p>

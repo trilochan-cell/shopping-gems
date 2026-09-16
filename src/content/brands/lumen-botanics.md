@@ -3,6 +3,7 @@ name: "Lumen Botanics"
 tagline: "Botanical skincare & clean beauty"
 description: "Lumen Botanics formulates vegan, fragrance-free skincare from botanical actives. Bestsellers include the Dew Serum and Barrier Cream, all cruelty-free with a 60-day empty-bottle guarantee."
 website: "https://example.com/lumen-botanics"
+logo: "/images/brands/lumen-botanics.svg"
 category: "Beauty"
 rating: 4.5
 reviews: 864

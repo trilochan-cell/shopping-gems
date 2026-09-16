@@ -3,6 +3,7 @@ name: "AquaVolt"
 tagline: "Hydrogen water bottles & hydration gear"
 description: "AquaVolt makes hydrogen-infusing water bottles, insulated tumblers, and replacement parts for active lifestyles. Known for the ATOM bottle line, fast express shipping, and a 30-day hydration-happiness guarantee."
 website: "https://example.com/aquavolt"
+logo: "/images/brands/aquavolt.svg"
 category: "Health & Wellness"
 rating: 4.6
 reviews: 1284

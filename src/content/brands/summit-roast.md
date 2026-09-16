@@ -3,6 +3,7 @@ name: "Summit & Roast"
 tagline: "Small-batch coffee, beans & brewing gear"
 description: "Summit & Roast is a mountain-roastery coffee brand selling single-origin beans, subscriptions, and brewing equipment. Roasted weekly, shipped fresh, with a brew-better-or-refunded promise on every bag."
 website: "https://example.com/summit-roast"
+logo: "/images/brands/summit-roast.svg"
 category: "Food & Drink"
 rating: 4.8
 reviews: 2317

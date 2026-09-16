@@ -95,7 +95,9 @@ internal links on every post · FAQ block on guides.
 
 - `src/content/brands/<slug>.md` — brand profile: `name, tagline, description,
   website, category, rating (0–5), reviews, maxDiscount ("30%"), faq[]`.
-  One file = one page at `/coupons/<slug>/` (auto-routed).
+  One file = one page at `/coupons/<slug>/` (auto-routed). Optional
+  `logo: "/images/brands/<slug>.svg"` (square SVG/PNG) shown in the hero,
+  directory, and similar-brand cards — otherwise a letter tile renders.
 - `src/content/coupons/<brand>-<offer>.md` — one offer per file:
   `brand` (brand slug) · `title` · `description` · `type: code|deal` ·
   `badge: "20% OFF"` (left box) · `code` (required for `type: code`) ·
@@ -106,6 +108,10 @@ internal links on every post · FAQ block on guides.
   tabs, reveal-code `<details>` + copy button, expired list, stats, how-to,
   FAQ + `ItemList/Offer` schema). Outbound store links use
   `rel="nofollow sponsored noopener"`.
+- Clicking Show Code / Get Deal opens the store in a background tab and pops a
+  modal with the code (copy button) or deal summary — see the `#coupon-modal`
+  block in `src/pages/coupons/[brand].astro`. No-JS fallback: Get Deal links
+  navigate directly; codes render via `<noscript>`.
 - Seed brands/coupons are **fictional placeholders** — replace with real,
   verified merchant data (never invent "verified" codes for real businesses).
 - Rebuild regularly: expiry filtering, "verified" dates, and sitemaps are
