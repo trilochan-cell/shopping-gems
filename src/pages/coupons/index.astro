@@ -53,28 +53,28 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
     <p id="brand-count" class="mt-2.5 text-sm text-slate-500">Showing all {brands.length} brands</p>
   </div>
 
-  <div id="brand-grid" class="mt-4 grid gap-[18px] pb-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div id="brand-grid" class="mt-4 grid grid-cols-2 gap-3 pb-4 sm:gap-[18px] lg:grid-cols-3">
     {brands.map((b) => {
       const top = topOffer(b.slug);
       return (
-        <article data-letter={b.data.name.charAt(0).toUpperCase()} class="brand-card flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-            <div class="flex items-center gap-3">
+          <article data-letter={b.data.name.charAt(0).toUpperCase()} class="brand-card flex flex-col rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:p-5">
+            <div class="flex items-center gap-2.5 sm:gap-3">
               {b.data.logo ? (
-                <img src={b.data.logo} alt={`${b.data.name} logo`} width="48" height="48" loading="lazy" class="h-12 w-12 shrink-0 rounded-lg border border-slate-200 bg-white object-contain" />
+                <img src={b.data.logo} alt={`${b.data.name} logo`} width="48" height="48" loading="lazy" class="h-10 w-10 shrink-0 rounded-lg border border-slate-200 bg-white object-contain sm:h-12 sm:w-12" />
               ) : (
-                <span class="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-brand font-display text-2xl font-bold text-white" aria-hidden="true">{b.data.name.charAt(0)}</span>
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand font-display text-xl font-bold text-white sm:h-12 sm:w-12 sm:text-2xl" aria-hidden="true">{b.data.name.charAt(0)}</span>
               )}
               <div class="min-w-0">
-                <h2 class="font-sans! text-lg font-extrabold leading-tight"><a href={`/coupons/${b.slug}/`} class="hover:text-brand">{b.data.name}</a></h2>
-                <p class="truncate text-[13px] text-slate-500">{b.data.tagline}</p>
+                <h2 class="font-sans! truncate text-[15px] font-extrabold leading-tight sm:text-lg"><a href={`/coupons/${b.slug}/`} class="hover:text-brand">{b.data.name}</a></h2>
+                <p class="hidden truncate text-[13px] text-slate-500 sm:block">{b.data.tagline}</p>
               </div>
             </div>
-            <p class="mt-3 text-sm text-slate-600">
+            <p class="mt-2.5 text-[12px] text-slate-600 sm:mt-3 sm:text-sm">
               <strong class="text-slate-900">{activeFor(b.slug).length} offers</strong> · up to <strong class="text-brand">{b.data.maxDiscount} off</strong>
-              <span class="text-slate-400"> · ★ {b.data.rating}</span>
+              {b.data.rating != null && <span class="hidden text-slate-400 sm:inline"> · ★ {b.data.rating}</span>}
             </p>
-            {top && <p class="mt-1 line-clamp-2 text-sm text-slate-500">Top pick: {top.data.title}</p>}
-            <p class="mt-auto pt-4"><a href={`/coupons/${b.slug}/`} class="inline-block rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white hover:bg-brand">View coupons →</a></p>
+            {top && <p class="mt-1 hidden line-clamp-2 text-sm text-slate-500 sm:block">Top pick: {top.data.title}</p>}
+            <p class="mt-auto pt-3 sm:pt-4"><a href={`/coupons/${b.slug}/`} class="block rounded-full bg-neutral-900 px-4 py-2 text-center text-[13px] font-bold text-white hover:bg-brand sm:inline-block sm:px-5 sm:py-2.5 sm:text-sm">View coupons →</a></p>
           </article>
         );
       })}
