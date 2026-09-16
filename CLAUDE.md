@@ -91,6 +91,26 @@ internal links on every post · FAQ block on guides.
   browser (Cmd+Shift+R) when styles look stale.
 - Never invent slugs/URLs — verify against `src/content/posts/` and `src/pages/`.
 
+## Coupon section (brands + offers)
+
+- `src/content/brands/<slug>.md` — brand profile: `name, tagline, description,
+  website, category, rating (0–5), reviews, maxDiscount ("30%"), faq[]`.
+  One file = one page at `/coupons/<slug>/` (auto-routed).
+- `src/content/coupons/<brand>-<offer>.md` — one offer per file:
+  `brand` (brand slug) · `title` · `description` · `type: code|deal` ·
+  `badge: "20% OFF"` (left box) · `code` (required for `type: code`) ·
+  `expiry: YYYY-MM-DD` (past dates auto-move to the Expired section at build) ·
+  `verified, uses, terms[], labels[], featured`.
+- Templates: `src/pages/coupons/index.astro` (brand directory) ·
+  `src/pages/coupons/[brand].astro` (Valuecom-style: header, All/Codes/Deals
+  tabs, reveal-code `<details>` + copy button, expired list, stats, how-to,
+  FAQ + `ItemList/Offer` schema). Outbound store links use
+  `rel="nofollow sponsored noopener"`.
+- Seed brands/coupons are **fictional placeholders** — replace with real,
+  verified merchant data (never invent "verified" codes for real businesses).
+- Rebuild regularly: expiry filtering, "verified" dates, and sitemaps are
+  build-time. Use `/new-brand` to scaffold a brand.
+
 ## Verify (after any change)
 
 ```
@@ -105,5 +125,6 @@ for p in / /sales /deals /about /contact /privacy /search /rss.xml; do
 - Skill: `.claude/skills/seo-blog-writing/SKILL.md` — full research → outline →
   images → write → verify workflow. Use it for every new post.
 - Commands: `/new-post` `/content-plan` `/topic-cluster` `/seo-audit` `/site-check`
+  `/new-brand`
 - Agents: `seo-blog-writer` (writes a post end-to-end) · `content-planner`
   (calendars and clusters, then proposes work)

@@ -18,4 +18,37 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const brands = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    tagline: z.string(),
+    description: z.string(),
+    website: z.string().url(),
+    category: z.string().default('Shopping'),
+    rating: z.number().min(0).max(5).default(4.5),
+    reviews: z.number().default(0),
+    maxDiscount: z.string().default('20%'),
+    faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+  }),
+});
+
+const coupons = defineCollection({
+  type: 'content',
+  schema: z.object({
+    brand: z.string(),
+    title: z.string(),
+    description: z.string(),
+    type: z.enum(['code', 'deal']).default('code'),
+    badge: z.string(),
+    code: z.string().optional(),
+    expiry: z.coerce.date(),
+    verified: z.coerce.date().optional(),
+    uses: z.number().default(0),
+    terms: z.array(z.string()).default([]),
+    labels: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { posts, brands, coupons };
