@@ -25,10 +25,10 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
   <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">Brand Coupons, Promo Codes &amp; Deals</h1>
   <p class="mt-2 max-w-3xl text-slate-600">Every brand below has a dedicated coupon page with tested codes, automatic deals, expiry dates, and terms — re-verified weekly. Pick a brand to start saving.</p>
 
-  <div class="mt-4 grid gap-4 text-center sm:grid-cols-3">
-    <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p class="font-display text-3xl font-bold text-brand">{brands.length}</p><p class="mt-1 text-sm font-semibold text-slate-600">Coupon brands</p></div>
-    <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p class="font-display text-3xl font-bold text-brand">{totalActive.length}</p><p class="mt-1 text-sm font-semibold text-slate-600">Active offers</p></div>
-    <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p class="font-display text-3xl font-bold text-brand">{totalCodes.length} + {totalDeals.length}</p><p class="mt-1 text-sm font-semibold text-slate-600">Codes + deals</p></div>
+  <div class="mt-4 grid grid-cols-3 gap-2.5 text-center sm:gap-4">
+    <div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm sm:p-5"><p class="font-display text-2xl font-bold text-brand sm:text-3xl">{brands.length}</p><p class="mt-1 text-[11px] font-semibold leading-snug text-slate-600 sm:text-sm">Coupon brands</p></div>
+    <div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm sm:p-5"><p class="font-display text-2xl font-bold text-brand sm:text-3xl">{totalActive.length}</p><p class="mt-1 text-[11px] font-semibold leading-snug text-slate-600 sm:text-sm">Active offers</p></div>
+    <div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm sm:p-5"><p class="font-display text-2xl font-bold text-brand sm:text-3xl">{totalCodes.length} + {totalDeals.length}</p><p class="mt-1 text-[11px] font-semibold leading-snug text-slate-600 sm:text-sm">Codes + deals</p></div>
   </div>
 
   <!-- A–Z brand filter -->
