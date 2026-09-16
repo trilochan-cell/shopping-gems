@@ -1,11 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #d92632;
-  --color-brand-dark: #a50e1a;
-  --color-ink: #1d3557;
-  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-display: Georgia, "Times New Roman", Times, serif;
+  --font-sans: "Gabarito", Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Gabarito", Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Brand = stormy teal */
+  --color-brand: #006d77;
+  --color-brand-dark: #00565e;
+  --color-ink: #004146;
+
+  --color-stormy-teal: #006d77;
+  --color-stormy-teal-100: #001617;
+  --color-stormy-teal-200: #002b2f;
+  --color-stormy-teal-300: #004146;
+  --color-stormy-teal-400: #00565e;
+  --color-stormy-teal-500: #006d77;
+  --color-stormy-teal-600: #00b4c4;
+  --color-stormy-teal-700: #13ebff;
+  --color-stormy-teal-800: #62f2ff;
+  --color-stormy-teal-900: #b0f8ff;
+
+  --color-pearl-aqua: #83c5be;
+  --color-pearl-aqua-100: #152c2a;
+  --color-pearl-aqua-200: #2a5954;
+  --color-pearl-aqua-300: #3f857e;
+  --color-pearl-aqua-400: #56afa6;
+  --color-pearl-aqua-500: #83c5be;
+  --color-pearl-aqua-600: #9bd0cb;
+  --color-pearl-aqua-700: #b4dcd8;
+  --color-pearl-aqua-800: #cde7e5;
+  --color-pearl-aqua-900: #e6f3f2;
+
+  --color-alice-blue: #edf6f9;
+  --color-alice-blue-100: #183d49;
+  --color-alice-blue-200: #307991;
+  --color-alice-blue-300: #5badc8;
+  --color-alice-blue-400: #a3d1e0;
+  --color-alice-blue-500: #edf6f9;
+  --color-alice-blue-600: #f0f7fa;
+  --color-alice-blue-700: #f4f9fb;
+  --color-alice-blue-800: #f7fbfc;
+  --color-alice-blue-900: #fbfdfe;
+
+  --color-almond-silk: #ffddd2;
+  --color-almond-silk-100: #5d1700;
+  --color-almond-silk-200: #ba2e00;
+  --color-almond-silk-300: #ff5117;
+  --color-almond-silk-400: #ff9774;
+  --color-almond-silk-500: #ffddd2;
+  --color-almond-silk-600: #ffe3da;
+  --color-almond-silk-700: #ffeae3;
+  --color-almond-silk-800: #fff1ed;
+  --color-almond-silk-900: #fff8f6;
+
+  --color-tangerine-dream: #e29578;
+  --color-tangerine-dream-100: #39180c;
+  --color-tangerine-dream-200: #723018;
+  --color-tangerine-dream-300: #ac4824;
+  --color-tangerine-dream-400: #d6673f;
+  --color-tangerine-dream-500: #e29578;
+  --color-tangerine-dream-600: #e8aa93;
+  --color-tangerine-dream-700: #eebfae;
+  --color-tangerine-dream-800: #f4d4c9;
+  --color-tangerine-dream-900: #f9eae4;
 }
 
 ::selection { background: var(--color-brand); color: #fff; }
@@ -47,7 +104,7 @@ main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
 
 /* Links */
 .prose-sg a {
-  @apply font-medium text-brand underline decoration-rose-200 underline-offset-[3px] decoration-2 hover:decoration-brand;
+  @apply font-medium text-brand underline decoration-pearl-aqua-500 decoration-2 underline-offset-[3px] hover:decoration-brand;
 }
 
 /* Lists */
@@ -58,7 +115,7 @@ main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
 
 /* Tip / quote callouts */
 .prose-sg blockquote {
-  @apply my-6 rounded-r-xl border-l-4 border-brand bg-rose-50 px-5 py-3 italic text-slate-700;
+  @apply my-6 rounded-r-xl border-l-4 border-brand bg-pearl-aqua-900 px-5 py-3 italic text-slate-700;
 }
 .prose-sg blockquote p { @apply my-2; }
 .prose-sg blockquote strong { @apply not-italic; }
@@ -67,7 +124,7 @@ main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
 .prose-sg table {
   @apply my-6 block w-full overflow-x-auto rounded-xl border border-slate-200 text-left text-[15px] shadow-sm;
 }
-.prose-sg thead { @apply bg-slate-900; }
+.prose-sg thead { @apply bg-stormy-teal-200; }
 .prose-sg th {
   @apply whitespace-nowrap px-4 py-3 font-bold text-white;
 }
@@ -75,7 +132,7 @@ main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
   @apply border-t border-slate-100 px-4 py-3 align-top leading-relaxed;
 }
 .prose-sg tbody tr:nth-child(even) { @apply bg-slate-50; }
-.prose-sg tbody tr:hover { @apply bg-rose-50/60; }
+.prose-sg tbody tr:hover { @apply bg-alice-blue; }
 /* First column acts as row label in spec/comparison tables */
 .prose-sg td:first-child { @apply font-semibold whitespace-nowrap text-slate-900; }
 

@@ -17,7 +17,9 @@ Audit this site's SEO and content health. Check and report each with evidence
    ≥5 questions on posts); `/rss.xml` lists all posts; sitemap exists
    in `dist/`.
 4. Design-system violations: emojis in `src/**/*.astro`, decorative gradients
-   outside hero legibility fades, `#e63946` remnants (must be `#d92632`).
+   outside hero legibility fades, off-palette colors (only `stormy-teal`,
+   `pearl-aqua`, `alice-blue`, `almond-silk`, `tangerine-dream`, slate/neutral
+   scales plus legacy `brand`/`ink` aliases may appear).
 5. Dead ends: `grep -ri "lorem\|TODO\|FIXME\|\[FILL" src/` (the About-page
    `[FILL: target audience]` is a known placeholder — flag if still there).
 6. Thin content: any post under 2500 words (body + FAQ answers).

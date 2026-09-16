@@ -13,7 +13,7 @@ const brandOffers = (slug: string) => coupons.filter((c) => c.data.brand === slu
 const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 <BaseLayout title="Shopping Gems — Best Online Shopping Blogs, Coupons & Deals" description="Shopping Gems is the best shopping blog: AliExpress & Amazon sale dates, coupons, deals and honest shopping guides.">
-  <section class="border-b border-slate-100 bg-stone-50 py-7">
+  <section class="border-b border-slate-100 bg-alice-blue py-7">
     <div class="grid gap-[18px] lg:grid-cols-[1.2fr_0.8fr]">
       {featured[0] && (
         <a href={`/posts/${featured[0].slug}/`} class="relative flex min-h-[340px] items-end overflow-hidden rounded-xl bg-neutral-900">
@@ -21,7 +21,7 @@ const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long'
           <div class="relative w-full bg-gradient-to-t from-black/75 to-transparent p-[22px] text-white">
             <span class="inline-block rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white">{featured[0].data.category}</span>
             <h2 class="my-2.5 text-2xl font-extrabold tracking-tight md:text-3xl">{featured[0].data.title}</h2>
-            <div class="flex flex-wrap gap-3 text-[13px] text-rose-50"><span>{fmt(featured[0].data.pubDate)}</span><span>{featured[0].data.views} Views</span></div>
+            <div class="flex flex-wrap gap-3 text-[13px] text-alice-blue"><span>{fmt(featured[0].data.pubDate)}</span><span>{featured[0].data.views} Views</span></div>
             <p class="mt-2 text-[15px] text-slate-100">{featured[0].data.description}</p>
           </div>
         </a>
@@ -33,7 +33,7 @@ const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long'
             <div class="relative w-full bg-gradient-to-t from-black/75 to-transparent p-[18px] text-white">
               <span class="inline-block rounded-full bg-brand px-2.5 py-1 text-[12px] font-bold uppercase tracking-wide text-white">{p.data.category}</span>
               <h3 class="my-2 text-lg font-bold leading-snug">{p.data.title}</h3>
-              <div class="flex flex-wrap gap-3 text-[13px] text-rose-50"><span>{fmt(p.data.pubDate)}</span><span>{p.data.views} Views</span></div>
+              <div class="flex flex-wrap gap-3 text-[13px] text-alice-blue"><span>{fmt(p.data.pubDate)}</span><span>{p.data.views} Views</span></div>
             </div>
           </a>
         ))}
@@ -67,7 +67,7 @@ const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long'
     ))}
   </div>
 
-  <section class="mt-[34px] overflow-hidden rounded-xl border border-slate-200 bg-stone-50 p-[22px]">
+  <section class="mt-[34px] overflow-hidden rounded-xl border border-slate-200 bg-alice-blue p-[22px]">
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
         <p class="text-[12px] font-bold uppercase tracking-[2px] text-slate-500">Hand-picked daily</p>
@@ -101,7 +101,7 @@ const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'long'
       <article class="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
         <a href="/deals" class="relative block aspect-[16/10] overflow-hidden">
           <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80&auto=format&fit=crop" alt="Open shop sign — trending products right now" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-          <span class="absolute left-3 top-3 rounded-full bg-emerald-700 px-3 py-1 text-[12px] font-bold uppercase tracking-wide text-white">Trending</span>
+          <span class="absolute left-3 top-3 rounded-full bg-stormy-teal px-3 py-1 text-[12px] font-bold uppercase tracking-wide text-white">Trending</span>
         </a>
         <div class="flex flex-1 flex-col p-5">
           <h3 class="text-lg font-extrabold leading-snug"><a href="/deals" class="group-hover:text-brand">Trending Deals</a></h3>

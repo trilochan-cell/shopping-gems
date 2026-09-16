@@ -43,7 +43,7 @@ const index = [
   <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / <span class="text-slate-700">Search</span></p>
   <h1 id="search-title" class="text-3xl font-extrabold tracking-tight">Search</h1>
   <form class="mt-4 flex max-w-md gap-2" action="/search" method="get" role="search">
-    <input id="search-input" type="search" name="s" value="" placeholder="Search deals, sales, guides…" aria-label="Search" class="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 outline-none focus:border-brand focus:ring-2 focus:ring-rose-200" />
+    <input id="search-input" type="search" name="s" value="" placeholder="Search deals, sales, guides…" aria-label="Search" class="min-w-0 flex-1 rounded-full border border-slate-200 px-4 py-2.5 outline-none focus:border-brand focus:ring-2 focus:ring-pearl-aqua-600" />
     <button type="submit" class="rounded-full bg-brand px-5 py-2.5 font-bold text-white hover:bg-brand-dark">Search</button>
   </form>
   <div class="mt-4 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -71,7 +71,7 @@ const index = [
     const card = (p) => {
       if (p.kind === 'coupon') return `
       <article class="flex flex-col overflow-hidden rounded-xl border-2 border-brand bg-white transition hover:-translate-y-0.5 hover:shadow-lg">
-        <div class="flex items-center gap-3 bg-rose-50 px-4 py-3">
+        <div class="flex items-center gap-3 bg-alice-blue px-4 py-3">
           <span class="font-display text-lg font-bold text-brand">${esc(p.badge)}</span>
           <span class="rounded-full bg-neutral-900 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white">Coupon</span>
         </div>

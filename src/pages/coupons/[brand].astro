@@ -109,9 +109,9 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
             <p class="mt-1 text-[15px] text-slate-600">{brand.data.tagline}</p>
             <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
               {brand.data.rating != null && (
-                <span class="font-bold text-amber-500" aria-label={`Rated ${brand.data.rating} out of 5`}>{stars} <span class="font-semibold text-slate-600">{brand.data.rating}{brand.data.reviews > 0 && ` (${brand.data.reviews.toLocaleString()} reviews)`}</span></span>
+                <span class="font-bold text-tangerine-dream-300" aria-label={`Rated ${brand.data.rating} out of 5`}>{stars} <span class="font-semibold text-slate-600">{brand.data.rating}{brand.data.reviews > 0 && ` (${brand.data.reviews.toLocaleString()} reviews)`}</span></span>
               )}
-              <span class="flex items-center gap-1 font-semibold text-emerald-700"><Icon name="check" cls="h-4 w-4" /> {active.length} verified offers</span>
+              <span class="flex items-center gap-1 font-semibold text-stormy-teal"><Icon name="check" cls="h-4 w-4" /> {active.length} verified offers</span>
             </div>
           </div>
           <a href={brandStoreUrl} target="_blank" rel="nofollow sponsored noopener" class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white hover:bg-brand-dark">Go to Store →</a>
@@ -141,10 +141,10 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
                 <h2 class="font-sans! text-[17px] font-extrabold leading-snug text-slate-900">{c.data.title}</h2>
                 <p class="text-sm leading-relaxed text-slate-600">{c.data.description}</p>
                 <div class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-slate-500">
-                  {c.data.verified && <span class="flex items-center gap-1 font-semibold text-emerald-700"><Icon name="check" cls="h-3.5 w-3.5" /> Verified {fmt(c.data.verified)}</span>}
+                  {c.data.verified && <span class="flex items-center gap-1 font-semibold text-stormy-teal"><Icon name="check" cls="h-3.5 w-3.5" /> Verified {fmt(c.data.verified)}</span>}
                   {c.data.uses != null && c.data.uses > 0 && <span class="flex items-center gap-1"><Icon name="eye" cls="h-3.5 w-3.5" /> {c.data.uses.toLocaleString()} uses</span>}
                   {c.data.expiry
-                    ? <span class="flex items-center gap-1 font-semibold text-amber-700"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ends {fmt(c.data.expiry)}</span>
+                    ? <span class="flex items-center gap-1 font-semibold text-tangerine-dream-300"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ends {fmt(c.data.expiry)}</span>
                     : <span class="flex items-center gap-1 font-semibold text-slate-500"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ongoing offer</span>}
                 </div>
                 {c.data.labels.length > 0 && <p class="mt-2 text-[12px] text-slate-500">Labels: {c.data.labels.join(' · ')}</p>}
@@ -169,7 +169,7 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
                       data-expiry={c.data.expiry ? fmt(c.data.expiry) : ''}
                       data-store={offerStoreUrl(c)}
                     >Show Code</button>
-                    <noscript><p class="mt-2 rounded-lg border-2 border-dashed border-brand bg-rose-50 p-2 text-center font-mono text-sm font-bold text-brand-dark">Code: {c.data.code}</p></noscript>
+                    <noscript><p class="mt-2 rounded-lg border-2 border-dashed border-brand bg-alice-blue p-2 text-center font-mono text-sm font-bold text-brand-dark">Code: {c.data.code}</p></noscript>
                   </div>
                 ) : (
                   <a
@@ -275,17 +275,17 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
     <div id="coupon-modal-backdrop" class="absolute inset-0 bg-black/60"></div>
     <div class="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
       <div class="flex items-center justify-between bg-neutral-900 px-5 py-3">
-        <p class="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-widest text-amber-300"><Icon name="tag" cls="h-4 w-4" /> {brand.data.name} coupon</p>
+        <p class="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-widest text-almond-silk"><Icon name="tag" cls="h-4 w-4" /> {brand.data.name} coupon</p>
         <button id="coupon-modal-close" type="button" aria-label="Close" class="rounded-lg p-2 text-2xl leading-none text-slate-300 hover:text-white">&times;</button>
       </div>
       <div class="p-6 text-center">
         <p id="coupon-modal-badge" class="font-display text-3xl font-bold text-brand"></p>
         <h3 id="coupon-modal-title" class="mt-2 text-lg font-extrabold leading-snug text-slate-900"></h3>
-        <div id="coupon-modal-code-wrap" class="mt-4 hidden rounded-xl border-2 border-dashed border-brand bg-rose-50 p-4">
+        <div id="coupon-modal-code-wrap" class="mt-4 hidden rounded-xl border-2 border-dashed border-brand bg-alice-blue p-4">
           <p id="coupon-modal-code" class="font-mono text-2xl font-black tracking-[0.2em] text-brand-dark"></p>
           <button id="coupon-modal-copy" type="button" class="mt-3 w-full rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-ink">Copy code</button>
         </div>
-        <p id="coupon-modal-deal-note" class="mt-4 hidden rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">This deal applies automatically at the store — no code needed.</p>
+        <p id="coupon-modal-deal-note" class="mt-4 hidden rounded-xl bg-pearl-aqua-900 px-4 py-3 text-sm font-semibold text-stormy-teal-300">This deal applies automatically at the store — no code needed.</p>
         <p class="mt-4 text-[13px] text-slate-500">The {brand.data.name} store opened in a new tab. <span id="coupon-modal-expiry" class="font-semibold text-slate-600"></span></p>
         <a id="coupon-modal-store" href={brandStoreUrl} target="_blank" rel="nofollow sponsored noopener" class="mt-3 inline-block w-full rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white hover:bg-brand-dark">Continue to Store →</a>
         <button id="coupon-modal-link" type="button" class="mt-2 w-full text-[13px] font-semibold text-slate-500 hover:text-brand">Copy link to this offer</button>

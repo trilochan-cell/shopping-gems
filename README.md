@@ -25,8 +25,8 @@ npm run preview  # serve the production build
 - **SEO baked in** — unique titles + meta descriptions, canonicals, OG/Twitter
   cards, `BlogPosting` + `BreadcrumbList` + `AboutPage`/`ContactPage` JSON-LD,
   sitemap, RSS, AA-safe contrast, `scope="col"` on table headers
-- **Editorial design** — serif headlines, flat brand red (`#d92632`), custom SVG
-  icon set, zero emoji/gradient slop
+- **Editorial design** — Gabarito type, stormy-teal + aqua palette with warm
+  almond/tangerine accents, custom SVG icon set, zero emoji/gradient slop
 
 ## Content workflow
 

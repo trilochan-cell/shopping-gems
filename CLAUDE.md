@@ -64,11 +64,15 @@ numbered how-to · "Mistakes to avoid" where useful · FAQ lives in frontmatter
 - **No emojis in UI.** Use `<Icon name="..." />` (names: diamond, flame, gift,
   bolt, chart, calendar, chat, eye, mail, lock, tag, check, briefcase, search,
   store, pen). Star-ratings inside article *content* are the only exception.
-- **Flat colors only.** Brand red `#d92632` (AA-safe), hover `#a50e1a`, neutrals +
-  `bg-stone-50` sections. No decorative gradients — the black fade over hero
-  images stays (text legibility).
-- **Serif headlines.** `main h1/h2` and `.prose-sg h3` are Georgia via CSS; cards,
-  meta, buttons stay sans (Inter).
+- **Flat colors only.** Stormy teal `#006d77` (AA 6.08:1), hover `#00565e`,
+  deep-teal ink `#004146`, aqua tints (`alice-blue` sections, `pearl-aqua`
+  callouts), warm accents (`almond-silk` on dark, `tangerine-dream` highlights).
+  Full scales in `@theme` (`stormy-teal`, `pearl-aqua`, `alice-blue`,
+  `almond-silk`, `tangerine-dream`). No decorative gradients — the black fade
+  over hero images stays (text legibility).
+- **Gabarito everywhere.** Google Font (loaded in `BaseLayout` head);
+  `--font-sans` + `--font-display` both Gabarito. `main h1/h2` and `.prose-sg h3`
+  inherit display weight; cards, meta, buttons stay regular.
 - Reuse `PostCard` and `Sidebar` on every listing surface (exception: the
   `/coupons` brand directory, which is full-width with an A–Z filter instead);
   keep the article template structure (breadcrumb → card → author box →
