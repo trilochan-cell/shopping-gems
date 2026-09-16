@@ -123,9 +123,9 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
 
       <!-- Tabs -->
       <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter offers">
-        <button data-filter="all" role="tab" aria-selected="true" class="coupon-tab rounded-full bg-neutral-900 px-5 py-2 text-sm font-bold text-white">All ({active.length})</button>
-        <button data-filter="code" role="tab" aria-selected="false" class="coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-bold text-slate-700 hover:border-brand">Codes ({codes.length})</button>
-        <button data-filter="deal" role="tab" aria-selected="false" class="coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-bold text-slate-700 hover:border-brand">Deals ({deals.length})</button>
+        <button data-filter="all" role="tab" aria-selected="true" class="coupon-tab rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white">All ({active.length})</button>
+        <button data-filter="code" role="tab" aria-selected="false" class="coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:border-brand">Codes ({codes.length})</button>
+        <button data-filter="deal" role="tab" aria-selected="false" class="coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:border-brand">Deals ({deals.length})</button>
       </div>
 
       <!-- Offer list -->
@@ -276,7 +276,7 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
     <div class="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
       <div class="flex items-center justify-between bg-neutral-900 px-5 py-3">
         <p class="flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-widest text-amber-300"><Icon name="tag" cls="h-4 w-4" /> {brand.data.name} coupon</p>
-        <button id="coupon-modal-close" type="button" aria-label="Close" class="text-2xl leading-none text-slate-300 hover:text-white">&times;</button>
+        <button id="coupon-modal-close" type="button" aria-label="Close" class="rounded-lg p-2 text-2xl leading-none text-slate-300 hover:text-white">&times;</button>
       </div>
       <div class="p-6 text-center">
         <p id="coupon-modal-badge" class="font-display text-3xl font-bold text-brand"></p>
@@ -302,8 +302,8 @@ const offerStoreUrl = (c: (typeof allCoupons)[number]) =>
         const on = t === btn;
         t.setAttribute('aria-selected', String(on));
         t.className = on
-          ? 'coupon-tab rounded-full bg-neutral-900 px-5 py-2 text-sm font-bold text-white'
-          : 'coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2 text-sm font-bold text-slate-700 hover:border-brand';
+          ? 'coupon-tab rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-bold text-white'
+          : 'coupon-tab rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold text-slate-700 hover:border-brand';
       });
     };
     tabs.forEach((btn) => btn.addEventListener('click', () => {

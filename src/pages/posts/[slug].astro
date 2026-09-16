@@ -84,10 +84,10 @@ const wordCount = post.body.trim().split(/\s+/).length
       <!-- Share -->
       <div class="mt-4 flex flex-wrap items-center gap-2">
         <span class="mr-1 text-[13px] font-bold uppercase tracking-wider text-slate-500">Share:</span>
-        <a href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-[#1877f2] px-4 py-1.5 text-[13px] font-bold text-white hover:opacity-90">Facebook</a>
-        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-neutral-900 px-4 py-1.5 text-[13px] font-bold text-white hover:opacity-90">X / Twitter</a>
-        <a href={`https://pinterest.com/pin/create/link/?url=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-[#bd081c] px-4 py-1.5 text-[13px] font-bold text-white hover:opacity-90">Pinterest</a>
-        <a href={`https://wa.me/?text=${encodeURIComponent(post.data.title + ' ' + pageUrl)}`} target="_blank" rel="noopener" class="rounded-full bg-[#25d366] px-4 py-1.5 text-[13px] font-bold text-white hover:opacity-90">WhatsApp</a>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-[#1877f2] px-4 py-2 text-[13px] font-bold text-white hover:opacity-90">Facebook</a>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-neutral-900 px-4 py-2 text-[13px] font-bold text-white hover:opacity-90">X / Twitter</a>
+        <a href={`https://pinterest.com/pin/create/link/?url=${pageUrl}`} target="_blank" rel="noopener" class="rounded-full bg-[#bd081c] px-4 py-2 text-[13px] font-bold text-white hover:opacity-90">Pinterest</a>
+        <a href={`https://wa.me/?text=${encodeURIComponent(post.data.title + ' ' + pageUrl)}`} target="_blank" rel="noopener" class="rounded-full bg-[#25d366] px-4 py-2 text-[13px] font-bold text-white hover:opacity-90">WhatsApp</a>
       </div>
 
       {post.data.image && (

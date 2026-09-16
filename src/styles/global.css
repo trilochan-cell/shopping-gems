@@ -10,6 +10,10 @@
 
 ::selection { background: var(--color-brand); color: #fff; }
 
+/* Mobile guards: never allow horizontal page scroll; soften tap flash */
+html, body { overflow-x: clip; }
+a, button, summary { -webkit-tap-highlight-color: transparent; }
+
 /* Editorial headlines — serif for page/section titles only */
 main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
 

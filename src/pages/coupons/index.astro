@@ -34,7 +34,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
   <!-- A–Z brand filter -->
   <div class="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
     <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter brands by letter">
-      <button data-letter="ALL" aria-pressed="true" class="az-btn rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-bold text-white">All</button>
+      <button data-letter="ALL" aria-pressed="true" class="az-btn rounded-lg bg-neutral-900 px-3 py-2 text-sm font-bold text-white">All</button>
       {letters.map(({ letter, count }) => (
         <button
           data-letter={letter}
@@ -42,7 +42,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
           disabled={count === 0}
           title={count === 0 ? `No brands under ${letter}` : `${count} brand${count === 1 ? '' : 's'} under ${letter}`}
           class:list={[
-            'az-btn rounded-lg px-3 py-1.5 text-sm font-bold',
+            'az-btn rounded-lg px-3 py-2 text-sm font-bold',
             count === 0
               ? 'cursor-not-allowed text-slate-300'
               : 'text-slate-700 hover:bg-slate-100 hover:text-brand',
@@ -99,8 +99,8 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
         const on = b === btn;
         b.setAttribute('aria-pressed', String(on));
         b.className = on
-          ? 'az-btn rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-bold text-white'
-          : 'az-btn rounded-lg px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-slate-100 hover:text-brand';
+          ? 'az-btn rounded-lg bg-neutral-900 px-3 py-2 text-sm font-bold text-white'
+          : 'az-btn rounded-lg px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-100 hover:text-brand';
       });
     };
     azBtns.forEach((btn) => btn.addEventListener('click', () => {
