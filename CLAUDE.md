@@ -114,6 +114,11 @@ internal links on every post · FAQ block on guides.
   navigate directly; codes render via `<noscript>`.
 - Seed brands/coupons are **fictional placeholders** — replace with real,
   verified merchant data (never invent "verified" codes for real businesses).
+- **Bulk uploads:** share a filled `coupon-upload-template.csv` (rules in
+  `coupon-upload-guide.md`); import with
+  `python3 scripts/import-coupons.py file.csv --dry-run` then without the flag.
+  The script validates every cell (row-numbered errors) and writes brand +
+  coupon files — then build + verify as usual.
 - Rebuild regularly: expiry filtering, "verified" dates, and sitemaps are
   build-time. Use `/new-brand` to scaffold a brand.
 
