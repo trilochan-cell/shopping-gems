@@ -10,7 +10,7 @@ const activeFor = (slug: string) => coupons.filter((c) => c.data.brand === slug 
 const totalActive = coupons.filter((c) => new Date(c.data.expiry) >= today);
 const totalCodes = totalActive.filter((c) => c.data.type === 'code');
 const totalDeals = totalActive.filter((c) => c.data.type === 'deal');
-const topOffer = (slug: string) => activeFor(slug).sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.uses - a.data.uses)[0];
+const topOffer = (slug: string) => activeFor(slug).sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || (b.data.uses ?? 0) - (a.data.uses ?? 0))[0];
 
 // Sidebar (blog cross-links)
 const posts = (await getCollection('posts')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

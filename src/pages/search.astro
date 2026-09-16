@@ -26,7 +26,7 @@ const index = [
     hay: (p.data.title + ' ' + p.data.description + ' ' + p.data.category + ' ' + p.data.tags.join(' ')).toLowerCase(),
   })),
   ...(await getCollection('coupons'))
-    .filter((c) => new Date(c.data.expiry) >= new Date())
+    .filter((c) => !c.data.expiry || new Date(c.data.expiry) >= new Date())
     .map((c) => ({
       kind: 'coupon',
       slug: c.slug,

@@ -13,8 +13,8 @@ const brands = await getCollection('brands');
 const brand = brands.find((b) => b.slug === slug)!;
 const allCoupons = await getCollection('coupons');
 const today = new Date();
-const isActive = (c: (typeof allCoupons)[number]) => new Date(c.data.expiry) >= today;
-const offers = allCoupons.filter((c) => c.data.brand === slug).sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.uses - a.data.uses);
+const isActive = (c: (typeof allCoupons)[number]) => !c.data.expiry || new Date(c.data.expiry) >= today;
+const offers = allCoupons.filter((c) => c.data.brand === slug).sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || (b.data.uses ?? 0) - (a.data.uses ?? 0));
 const active = offers.filter(isActive);
 const expired = offers.filter((c) => !isActive(c));
 const codes = active.filter((c) => c.data.type === 'code');
@@ -30,7 +30,9 @@ const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
 
 const fmt = (d: Date) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 const monthYear = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-const stars = '★'.repeat(Math.round(brand.data.rating)) + '☆'.repeat(5 - Math.round(brand.data.rating));
+const stars = brand.data.rating != null
+  ? '★'.repeat(Math.round(brand.data.rating)) + '☆'.repeat(5 - Math.round(brand.data.rating))
+  : '';
 const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
 ---
 <BaseLayout
@@ -63,7 +65,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
           "description": c.data.description,
           "url": pageUrl,
           "availability": "https://schema.org/InStock",
-          "validThrough": new Date(c.data.expiry).toISOString().split('T')[0],
+          ...(c.data.expiry ? { "validThrough": new Date(c.data.expiry).toISOString().split('T')[0] } : {}),
           "seller": { "@type": "Organization", "name": brand.data.name, "url": brand.data.website }
         }
       }))
@@ -94,7 +96,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
       <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
         <div class="flex flex-wrap items-start gap-4">
           {brand.data.logo ? (
-            <img src={brand.data.logo} alt={`${brand.data.name} logo`} width="64" height="64" class="h-16 w-16 shrink-0 rounded-xl border border-slate-200 bg-white object-contain" />
+            <img src={brand.data.logo} alt={`${brand.data.name} logo`} width="176" height="64" class="h-16 w-auto max-w-44 shrink-0 rounded-xl border border-slate-200 bg-white object-contain px-2" />
           ) : (
             <span class="grid h-16 w-16 shrink-0 place-items-center rounded-xl bg-brand font-display text-3xl font-bold text-white" aria-hidden="true">{brand.data.name.charAt(0)}</span>
           )}
@@ -102,7 +104,9 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
             <h1 class="text-2xl font-extrabold tracking-tight md:text-3xl">{brand.data.name} Promo Codes &amp; Coupons</h1>
             <p class="mt-1 text-[15px] text-slate-600">{brand.data.tagline}</p>
             <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <span class="font-bold text-amber-500" aria-label={`Rated ${brand.data.rating} out of 5`}>{stars} <span class="font-semibold text-slate-600">{brand.data.rating} ({brand.data.reviews.toLocaleString()} reviews)</span></span>
+              {brand.data.rating != null && (
+                <span class="font-bold text-amber-500" aria-label={`Rated ${brand.data.rating} out of 5`}>{stars} <span class="font-semibold text-slate-600">{brand.data.rating}{brand.data.reviews > 0 && ` (${brand.data.reviews.toLocaleString()} reviews)`}</span></span>
+              )}
               <span class="flex items-center gap-1 font-semibold text-emerald-700"><Icon name="check" cls="h-4 w-4" /> {active.length} verified offers</span>
             </div>
           </div>
@@ -134,8 +138,10 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
                 <p class="text-sm leading-relaxed text-slate-600">{c.data.description}</p>
                 <div class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-slate-500">
                   {c.data.verified && <span class="flex items-center gap-1 font-semibold text-emerald-700"><Icon name="check" cls="h-3.5 w-3.5" /> Verified {fmt(c.data.verified)}</span>}
-                  <span class="flex items-center gap-1"><Icon name="eye" cls="h-3.5 w-3.5" /> {c.data.uses.toLocaleString()} uses</span>
-                  <span class="flex items-center gap-1 font-semibold text-amber-700"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ends {fmt(c.data.expiry)}</span>
+                  {c.data.uses != null && c.data.uses > 0 && <span class="flex items-center gap-1"><Icon name="eye" cls="h-3.5 w-3.5" /> {c.data.uses.toLocaleString()} uses</span>}
+                  {c.data.expiry
+                    ? <span class="flex items-center gap-1 font-semibold text-amber-700"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ends {fmt(c.data.expiry)}</span>
+                    : <span class="flex items-center gap-1 font-semibold text-slate-500"><Icon name="calendar" cls="h-3.5 w-3.5" /> Ongoing offer</span>}
                 </div>
                 {c.data.labels.length > 0 && <p class="mt-2 text-[12px] text-slate-500">Labels: {c.data.labels.join(' · ')}</p>}
                 {(c.data.terms.length > 0) && (
@@ -152,10 +158,11 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
                       type="button"
                       class="coupon-open block w-full rounded-lg bg-brand px-5 py-3 text-center text-sm font-bold text-white hover:bg-brand-dark"
                       data-kind="code"
+                      data-coupon={c.slug}
                       data-code={c.data.code}
                       data-title={c.data.title}
                       data-badge={c.data.badge}
-                      data-expiry={fmt(c.data.expiry)}
+                      data-expiry={c.data.expiry ? fmt(c.data.expiry) : ''}
                       data-store={brand.data.website}
                     >Show Code</button>
                     <noscript><p class="mt-2 rounded-lg border-2 border-dashed border-brand bg-rose-50 p-2 text-center font-mono text-sm font-bold text-brand-dark">Code: {c.data.code}</p></noscript>
@@ -167,9 +174,10 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
                     rel="nofollow sponsored noopener"
                     class="coupon-open block w-full rounded-lg bg-neutral-900 px-5 py-3 text-center text-sm font-bold text-white hover:bg-ink"
                     data-kind="deal"
+                    data-coupon={c.slug}
                     data-title={c.data.title}
                     data-badge={c.data.badge}
-                    data-expiry={fmt(c.data.expiry)}
+                    data-expiry={c.data.expiry ? fmt(c.data.expiry) : ''}
                     data-store={brand.data.website}
                   >Get Deal →</a>
                 )}
@@ -276,6 +284,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
         <p id="coupon-modal-deal-note" class="mt-4 hidden rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">This deal applies automatically at the store — no code needed.</p>
         <p class="mt-4 text-[13px] text-slate-500">The {brand.data.name} store opened in a new tab. <span id="coupon-modal-expiry" class="font-semibold text-slate-600"></span></p>
         <a id="coupon-modal-store" href={brand.data.website} target="_blank" rel="nofollow sponsored noopener" class="mt-3 inline-block w-full rounded-lg bg-brand px-5 py-3 text-sm font-bold text-white hover:bg-brand-dark">Continue to Store →</a>
+        <button id="coupon-modal-link" type="button" class="mt-2 w-full text-[13px] font-semibold text-slate-500 hover:text-brand">Copy link to this offer</button>
       </div>
     </div>
   </div>
@@ -324,14 +333,19 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
     const mExpiry = document.getElementById('coupon-modal-expiry');
     const mClose = document.getElementById('coupon-modal-close');
     const mBackdrop = document.getElementById('coupon-modal-backdrop');
+    const mLink = document.getElementById('coupon-modal-link');
     let lastFocus = null;
-    function openModal(btn) {
+    let currentCoupon = '';
+    const pageBase = location.href.split('#')[0];
+    function openModal(btn, navigate) {
       const store = btn.getAttribute('data-store') || '#';
-      window.open(store, '_blank', 'noopener');
+      if (navigate !== false && store !== '#') window.open(store, '_blank', 'noopener');
       const isCode = btn.getAttribute('data-kind') === 'code';
+      currentCoupon = btn.getAttribute('data-coupon') || '';
       mBadge.textContent = btn.getAttribute('data-badge') || '';
       mTitle.textContent = btn.getAttribute('data-title') || '';
-      mExpiry.textContent = 'Offer ends ' + (btn.getAttribute('data-expiry') || '') + '.';
+      const exp = btn.getAttribute('data-expiry') || '';
+      mExpiry.textContent = exp ? 'Offer ends ' + exp + '.' : 'Ongoing offer — no expiry date.';
       mStore.setAttribute('href', store);
       mCodeWrap.classList.toggle('hidden', !isCode);
       mDealNote.classList.toggle('hidden', isCode);
@@ -339,6 +353,7 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
         mCode.textContent = btn.getAttribute('data-code') || '';
         mCopy.textContent = 'Copy code';
       }
+      if (currentCoupon) history.replaceState(null, '', pageBase + '#coupon-' + currentCoupon);
       lastFocus = document.activeElement;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -349,16 +364,25 @@ const pageUrl = `http://localhost:4321/coupons/${brand.slug}/`;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.style.overflow = '';
+      history.replaceState(null, '', pageBase);
       if (lastFocus) lastFocus.focus();
     }
     document.querySelectorAll('.coupon-open').forEach((b) => {
       b.addEventListener('click', (e) => { e.preventDefault(); openModal(b); });
     });
+    // Deep link: /coupons/<brand>/#coupon-<slug> opens that offer's popup
+    // (store tab is NOT auto-opened — browsers block non-gesture popups)
+    const deep = location.hash.match(/^#coupon-([\w-]+)$/);
+    if (deep) {
+      const target = document.querySelector('.coupon-open[data-coupon="' + deep[1] + '"]');
+      if (target) openModal(target, false);
+    }
     mClose.addEventListener('click', closeModal);
     mBackdrop.addEventListener('click', closeModal);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
     });
     mCopy.addEventListener('click', () => copyText(mCode.textContent || '', mCopy, 'Copied!'));
+    mLink.addEventListener('click', () => copyText(pageBase + '#coupon-' + currentCoupon, mLink, 'Link copied!'));
   </script>
 </BaseLayout>
