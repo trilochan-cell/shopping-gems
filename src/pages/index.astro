@@ -26,28 +26,28 @@ const ticker = posts.slice(0, 5);
     </div>
   </div>
 
-  <!-- News hero -->
+  <!-- News hero: 60% two features / 40% top stories, equal height -->
   <section class="py-5">
     <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-      {featured[0] && (
-        <article class="flex h-full flex-col justify-center">
-          <a href={`/posts/${featured[0].slug}/`} class="group grid gap-4 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
+      <div class="flex min-h-0 flex-col divide-y divide-slate-200 border-y border-slate-200">
+        {featured.slice(0, 2).map((p) => (
+          <a href={`/posts/${p.slug}/`} class="group grid flex-1 gap-4 py-4 first:pt-0 last:pb-0 sm:grid-cols-[0.85fr_1.15fr] sm:items-center">
             <span class="block overflow-hidden rounded-xl">
-              <img class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03]" src={featured[0].data.image} alt={featured[0].data.imageAlt ?? featured[0].data.title} loading="eager" />
+              <img class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.03]" src={p.data.image} alt={p.data.imageAlt ?? p.data.title} loading="eager" />
             </span>
             <span class="block min-w-0">
-              <span class="block text-[11px] font-black uppercase tracking-[2px] text-brand">{featured[0].data.category}</span>
-              <span class="mt-1 line-clamp-3 block font-display text-[22px] font-black leading-[1.15] tracking-tight group-hover:text-brand md:text-2xl">{featured[0].data.title}</span>
-              <span class="mt-1.5 line-clamp-2 block text-sm leading-relaxed text-slate-600">{featured[0].data.description}</span>
-              <span class="mt-2 block text-[12px] text-slate-500"><strong class="text-slate-700">Shopping Gems Team</strong> · {fmt(featured[0].data.pubDate)} · {readTime(featured[0].body)} min read</span>
+              <span class="block text-[11px] font-black uppercase tracking-[2px] text-brand">{p.data.category}</span>
+              <span class="mt-1 line-clamp-3 block font-display text-[22px] font-black leading-[1.15] tracking-tight group-hover:text-brand md:text-[26px]">{p.data.title}</span>
+              <span class="mt-1.5 line-clamp-2 block text-sm leading-relaxed text-slate-600">{p.data.description}</span>
+              <span class="mt-2 block text-[12px] text-slate-500"><strong class="text-slate-700">Shopping Gems Team</strong> · {fmt(p.data.pubDate)} · {readTime(p.body)} min read</span>
             </span>
           </a>
-        </article>
-      )}
+        ))}
+      </div>
       <aside aria-label="Top stories" class="flex h-full flex-col rounded-xl border border-slate-200 bg-white">
         <h2 class="border-b-2 border-neutral-900 px-4 pb-2 pt-3 font-display text-lg font-black">Top Stories</h2>
         <div class="flex flex-1 flex-col divide-y divide-slate-100 px-4">
-          {featured.slice(1).concat(latest.filter((p) => !featured.map((f) => f.slug).includes(p.slug)).slice(0, 1)).slice(0, 3).map((p) => (
+          {featured.slice(2).concat(latest.filter((p) => !featured.map((f) => f.slug).includes(p.slug)).slice(0, 2)).slice(0, 3).map((p) => (
             <a href={`/posts/${p.slug}/`} class="group flex flex-1 items-center gap-3 py-2.5">
               <img src={p.data.image} alt={p.data.imageAlt ?? p.data.title} loading="lazy" class="h-14 w-[76px] shrink-0 rounded-lg object-cover" />
               <span class="min-w-0">
