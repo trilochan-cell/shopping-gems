@@ -36,7 +36,7 @@ The sale runs in three phases. Each phase has a job — and shoppers who treat w
 | Main sale | Mid-January (~7 days) | Check out with stacked codes, hit midnight Super Deals |
 | Last chance | Late January (2–3 days) | Use leftover coupons before they expire |
 
-Dates shift by a few days each year, so treat early-to-mid January as the window and watch the AliExpress homepage countdown. We update this page the moment dates are confirmed — and our [sales hub](/sales) tracks every event in one place.
+Dates shift by a few days each year, so treat early-to-mid January as the window and watch the AliExpress homepage countdown. We update this page the moment dates are confirmed — and our [deals hub](/deals) tracks every event in one place.
 
 **Why warm-up matters more than sale day.** Store coupons are limited in quantity and the good ones (high discount, low minimum spend) get claimed fast. Platform promo codes are usually unlimited, but store-level codes are not. Spend 20 minutes during warm-up claiming everything from stores you might buy from — unclaimed coupons are the number-one reason shoppers overpay.
 
@@ -138,6 +138,6 @@ The shoppers who save most treat January as orientation week, not the main event
 
 Beyond the main mechanics sit three underused boosters. **Flash Super Deals** refresh in waves — check the Super Deals page morning and evening, since restocks happen quietly and the best ones never reach banners. **Livestreams** from top sellers hide exclusive coupon drops for viewers; even ten background minutes can surface codes worth more than the time. **Coin games and daily check-ins** feel trivial until you total them: a month of thirty-second check-ins plus game rewards typically funds $5–15 of redemptions during the event — free money for tapping a button with coffee. None of these replace the core stack, but together they add 3–7% on top of an already-optimized cart. Check the [full 2026 calendar](/posts/aliexpress-sales-in-2026/) — these boosters run at every event, so habits built in January pay all year.
 
-**Bookmark the event hub:** pin our [sales hub](/sales) and [deals hub](/deals) in your browser for sale week — dates, codes, and live picks update there first, and checking both takes less time than re-deriving the plan from scratch. Prepared shoppers don't just save more; they stress less, checkout faster, and never watch a coupon expire unused.
+**Bookmark the event hub:** pin our [deals hub](/deals) in your browser for sale week — dates, codes, and live picks update there first, and checking both takes less time than re-deriving the plan from scratch. Prepared shoppers don't just save more; they stress less, checkout faster, and never watch a coupon expire unused.
 
 Happy bargain hunting — January rewards the prepared.

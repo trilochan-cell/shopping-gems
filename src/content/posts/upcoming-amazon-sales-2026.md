@@ -36,7 +36,7 @@ Cross-shopping AliExpress? Compare with our [AliExpress Sales 2026 calendar](/po
 | Black Friday Week | Late November | ★★★★★ | TVs, laptops, everything |
 | Christmas Store | December | ★★★ | Gifts, toys, last-minute |
 
-> Expected dates follow previous years' patterns. Amazon confirms exact dates 2–4 weeks out — we update this list immediately, so check the [sales hub](/sales) before any big purchase.
+> Expected dates follow previous years' patterns. Amazon confirms exact dates 2–4 weeks out — we update this list immediately, so check the [deals hub](/deals) before any big purchase.
 
 ## Event-by-event breakdown
 
@@ -137,4 +137,4 @@ Subscriptions silently drift — run this audit twice a year. Export or list eve
 
 ## Your pre-sale checklist
 
-Two weeks out: wishlist everything, screenshot baselines, confirm bank/card eligibility. Three days out: clip every coupon, check exchange values, start/refresh Prime trial timing. Sale days: hit Lightning waves in your category, verify the full stack at payments, and split gift orders early for December deadlines. Between events: watch [Shopping Gems' sales coverage](/sales) and [Online Shopping guides](/category/online-shopping/) — the next date is always closer than you think. And keep a one-line log per event (what you bought, the stacked total, what you'd do differently) — three events of notes turns sale shopping from stressful improvisation into a calm, repeatable system that beats impulse buyers by double digits every single time.
+Two weeks out: wishlist everything, screenshot baselines, confirm bank/card eligibility. Three days out: clip every coupon, check exchange values, start/refresh Prime trial timing. Sale days: hit Lightning waves in your category, verify the full stack at payments, and split gift orders early for December deadlines. Between events: watch [Shopping Gems' deals coverage](/deals) and [Online Shopping guides](/category/online-shopping/) — the next date is always closer than you think. And keep a one-line log per event (what you bought, the stacked total, what you'd do differently) — three events of notes turns sale shopping from stressful improvisation into a calm, repeatable system that beats impulse buyers by double digits every single time.

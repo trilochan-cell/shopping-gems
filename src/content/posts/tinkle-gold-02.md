@@ -54,7 +54,7 @@ Parents sometimes treat comics as candy next to "real books." The research says 
 
 ## Why 90s kids can't resist it (and shouldn't)
 
-Nostalgia purchases usually disappoint — the movie remake, the rebooted cereal. Tinkle Gold works because the underlying material never degraded: the jokes are structural, the art remastering is genuinely good, and the binding makes it shelf-worthy rather than disposable. It functions as three purchases in one: a coffee-table conversation piece, a read-aloud book for your kids, and a time capsule of pre-internet Indian childhood. At well under $20 during most [sale events](/sales), the price-to-joy ratio is absurd.
+Nostalgia purchases usually disappoint — the movie remake, the rebooted cereal. Tinkle Gold works because the underlying material never degraded: the jokes are structural, the art remastering is genuinely good, and the binding makes it shelf-worthy rather than disposable. It functions as three purchases in one: a coffee-table conversation piece, a read-aloud book for your kids, and a time capsule of pre-internet Indian childhood. At well under $20 during most [sale events](/deals), the price-to-joy ratio is absurd.
 
 ## The complete gift playbook
 
@@ -121,7 +121,7 @@ The starter stack that covers every base: Tinkle Gold 02 (the hook), one Amar Ch
 
 ## Classroom and homeschool uses
 
-Teachers: Suppandi strips are ready-made lesson material — sequencing exercises (reorder shuffled panels), dialogue-writing prompts (erase speech bubbles, students fill them), and vocabulary-in-context work where art supplies the definitions. The short format fits single periods, and the humor earns buy-in that textbook passages don't. Homeschoolers: build a weekly "comic + retell" routine — read one story, narrate it back, then draw an alternate ending. Librarians: Gold volumes survive circulation far better than digests, and the spine-out gold binding markets itself on shelves. For classroom sets, watch [deal drops](/deals) and [sale events](/sales) — bulk pricing windows make class sets affordable.
+Teachers: Suppandi strips are ready-made lesson material — sequencing exercises (reorder shuffled panels), dialogue-writing prompts (erase speech bubbles, students fill them), and vocabulary-in-context work where art supplies the definitions. The short format fits single periods, and the humor earns buy-in that textbook passages don't. Homeschoolers: build a weekly "comic + retell" routine — read one story, narrate it back, then draw an alternate ending. Librarians: Gold volumes survive circulation far better than digests, and the spine-out gold binding markets itself on shelves. For classroom sets, watch [deal drops](/deals) — bulk pricing windows make class sets affordable.
 
 ## Finding rare and out-of-print issues
 

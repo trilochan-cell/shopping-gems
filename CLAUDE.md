@@ -25,7 +25,8 @@ rehype plugin `src/plugins/rehype-table-scope.mjs` (adds `scope="col"` to `<th>`
 - `src/content/posts/*.md` — all blog posts (Markdown + frontmatter below)
 - `src/content.config.ts` — `posts` collection schema
 - `src/pages/` — `index.astro` (home) · `posts/[slug].astro` (article + sidebar) ·
-  `category/[category].astro` · `tag/[tag].astro` · `sales.astro` · `deals.astro` ·
+  `category/[category].astro` · `tag/[tag].astro` · `deals.astro` (merged
+  sales + deals hub) ·
   `about/contact/privacy.astro` · `search.astro` · `rss.xml.js`
 - `src/layouts/BaseLayout.astro` — head SEO, header/footer. Import global CSS in
   frontmatter (`import '../styles/global.css'`), never `@import` inside `<style>`.
@@ -57,7 +58,7 @@ Body conventions: **≥2500 words** (body + FAQ answers) · lead paragraph first
 one comparison/table section where it fits (gets card styling + `scope` free) ·
 numbered how-to · "Mistakes to avoid" where useful · FAQ lives in frontmatter
 (`faq:` — auto-rendered + schema), never duplicated in the body · **≥3 internal links** to real posts/pages
-(slugs live in `src/content/posts/`, hubs at `/sales`, `/deals`, categories).
+(slugs live in `src/content/posts/`, hubs at `/deals`, `/coupons`, categories).
 
 ## Design system (non-negotiable)
 
@@ -138,7 +139,7 @@ internal links on every post · FAQ block on guides.
 ```
 npm run build                                        # must be 0 errors
 grep -ri "uncategorized\|xocoupon" dist/ | head      # must be empty
-for p in / /sales /deals /about /contact /privacy /search /rss.xml; do
+for p in / /deals /coupons /about /contact /privacy /search /rss.xml; do
   curl -s -o /dev/null -w "$p %{http_code}\n" "http://localhost:4321$p"; done
 ```
 

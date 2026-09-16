@@ -28,7 +28,7 @@ intent + why it fits the site's categories) and ask which to write.
 - 5 FAQ questions in frontmatter `faq:` (40–60 word plain-text answers, no
   links — they render the FAQ block AND the `FAQPage` schema automatically).
 - ≥3 internal links mapped to REAL targets: `Glob`/`Grep` slugs first. Prefer
-  hub pages (`/sales`, `/deals`), same-category posts, and one category archive.
+  hub pages (`/deals`, `/coupons`), same-category posts, and one category archive.
 
 ## 3. Images (local-first)
 
@@ -66,7 +66,7 @@ faq:                             # 5 Q&As, plain text, no links (block + schema 
 2. `##` keyword sections; exactly one `table` where comparison fits.
 3. Numbered how-to or tips (`1.`); short "Mistakes to avoid" list where useful.
 4. NO faq in the body — it lives in frontmatter (auto-rendered + schema).
-5. Closing line linking to `/deals`, `/sales`, or the category archive.
+5. Closing line linking to `/deals`, `/coupons`, or the category archive.
 6. No emojis (content exception: ★ ratings only). No invented facts.
 
 ## 6. Write + build + verify

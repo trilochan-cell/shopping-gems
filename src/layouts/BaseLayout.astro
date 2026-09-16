@@ -105,7 +105,6 @@ const linkCls = (href: string, exact = false) =>
       </a>
       <nav class="hidden flex-wrap gap-[18px] text-[15px] font-semibold md:flex" aria-label="Primary">
         <a href="/" class={linkCls('/', true)}>Home</a>
-        <a href="/sales" class={linkCls('/sales')}>Sales</a>
         <a href="/deals" class={linkCls('/deals')}>Deals</a>
         <a href="/coupons" class={linkCls('/coupons')}>Coupons</a>
       </nav>
@@ -114,7 +113,7 @@ const linkCls = (href: string, exact = false) =>
       </form>
     </div>
     <nav class="flex gap-5 overflow-x-auto border-t border-slate-200 px-5 py-1 text-sm font-semibold md:hidden [&>a]:py-2" aria-label="Mobile">
-      <a href="/">Home</a><a href="/sales">Sales</a><a href="/deals">Deals</a><a href="/coupons">Coupons</a>
+      <a href="/">Home</a><a href="/deals">Deals</a><a href="/coupons">Coupons</a>
     </nav>
   </header>
   <main id="main" class="mx-auto max-w-6xl px-5"><slot /></main>
@@ -130,7 +129,7 @@ const linkCls = (href: string, exact = false) =>
         </div>
         <div>
           <h4 class="mb-2.5 font-bold text-white">On the blog</h4>
-          <p class="space-y-1.5 leading-7"><a class="hover:text-white" href="/">Home</a><br /><a class="hover:text-white" href="/sales">Sales</a><br /><a class="hover:text-white" href="/deals">Deals</a><br /><a class="hover:text-white" href="/coupons">Coupons</a><br /><a class="hover:text-white" href="/contact">Contact Us</a><br /><a class="hover:text-white" href="/about">About Us</a><br /><a class="hover:text-white" href="/privacy">Privacy Policy</a></p>
+          <p class="space-y-1.5 leading-7"><a class="hover:text-white" href="/">Home</a><br /><a class="hover:text-white" href="/deals">Deals</a><br /><a class="hover:text-white" href="/coupons">Coupons</a><br /><a class="hover:text-white" href="/contact">Contact Us</a><br /><a class="hover:text-white" href="/about">About Us</a><br /><a class="hover:text-white" href="/privacy">Privacy Policy</a></p>
         </div>
         <div>
           <h4 class="mb-2.5 font-bold text-white">Explore</h4>

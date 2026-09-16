@@ -10,10 +10,10 @@ const recent = all.slice(0, 4).map((p) => ({ slug: p.slug, title: p.data.title, 
 const categories = [...new Set(all.map((p) => p.data.category))].map((c) => ({ name: c, slug: slugify(c), count: all.filter((p) => p.data.category === c).length }));
 const tags = [...new Set(all.flatMap((p) => p.data.tags))];
 ---
-<BaseLayout title="Deals — Shopping Gems" description="Today's best deals, lightning deals and trending discounts.">
-  <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / <span class="text-slate-700">Deals</span></p>
-  <h1 class="text-3xl font-extrabold tracking-tight">Deals</h1>
-  <p class="mt-2 text-slate-600">Hand-picked deals, lightning drops and trending discounts.</p>
+<BaseLayout title="Sales & Deals — Shopping Gems" description="Sale calendars, expected dates, coupons and hand-picked deals — every way to never pay full price.">
+  <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / <span class="text-slate-700">Sales &amp; Deals</span></p>
+  <h1 class="text-3xl font-extrabold tracking-tight">Sales &amp; Deals</h1>
+  <p class="mt-2 text-slate-600">Sale calendars, coupon-stacking guides, lightning drops and trending discounts — one hub for every saving.</p>
   <div class="mt-4 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
     <div class="grid min-w-0 content-start gap-[18px] sm:grid-cols-2">
       {posts.map((p) => (<PostCard slug={p.slug} title={p.data.title} description={p.data.description} category={p.data.category} pubDate={p.data.pubDate} views={p.data.views} image={p.data.image} imageAlt={p.data.imageAlt} cta="Get deal" />))}

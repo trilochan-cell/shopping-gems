@@ -18,9 +18,9 @@ const recent = all.slice(0, 4).map((p) => ({ slug: p.slug, title: p.data.title, 
 const categories = [...new Set(all.map((p) => p.data.category))].map((c) => ({ name: c, slug: slugify(c), count: all.filter((p) => p.data.category === c).length }));
 const allTags = [...new Set(all.flatMap((p) => p.data.tags))];
 ---
-<BaseLayout title={`${isSale ? 'Sales' : tag + ' deals'} — Shopping Gems`} description={`All posts tagged ${tag} on Shopping Gems.`}>
+<BaseLayout title={`Tag: ${tag} — Shopping Gems`} description={`All posts tagged ${tag} on Shopping Gems.`} canonical={isSale ? 'http://localhost:4321/deals' : undefined}>
   <p class="my-[18px] text-[13px] text-slate-500"><a href="/" class="hover:text-brand">Home</a> / Tag / <span class="text-slate-700">{tag}</span></p>
-  <h1 class="text-3xl font-extrabold tracking-tight">{isSale ? 'Sales' : `Tag: ${tag}`}</h1>
+  <h1 class="text-3xl font-extrabold tracking-tight">{`Tag: ${tag}`}</h1>
   <p class="mt-2 text-slate-600">{posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged “{tag}”.</p>
   <div class="mt-4 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
     <div class="grid min-w-0 content-start gap-[18px] sm:grid-cols-2">

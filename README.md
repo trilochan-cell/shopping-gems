@@ -20,7 +20,7 @@ npm run preview  # serve the production build
   tables, FAQs, internal links)
 - **Full blog system** — homepage hero, article pages with sticky sidebar
   (search, trending deals, latest posts, categories, tags, newsletter),
-  category/tag archives, `/sales` + `/deals` hubs, about/contact/privacy,
+  category/tag archives, `/deals` sales-and-deals hub, about/contact/privacy,
   client-side `/search`, `/rss.xml`
 - **SEO baked in** — unique titles + meta descriptions, canonicals, OG/Twitter
   cards, `BlogPosting` + `BreadcrumbList` + `AboutPage`/`ContactPage` JSON-LD,

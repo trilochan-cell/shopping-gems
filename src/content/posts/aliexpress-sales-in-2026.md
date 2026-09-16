@@ -38,7 +38,7 @@ Shopping the January event right now? Jump to our [AliExpress New Year Sale 2026
 | Black Friday / Cyber Monday | Late November | ★★★★ | TVs, laptops, global brands |
 | Christmas Sale | December | ★★★★ | Gifts, toys, festive decor |
 
-> Expected dates follow previous years' patterns. We revise this page the moment AliExpress confirms each event — bookmark it and check the [sales hub](/sales) before every purchase.
+> Expected dates follow previous years' patterns. We revise this page the moment AliExpress confirms each event — bookmark it and check the [deals hub](/deals) before every purchase.
 
 ## Event-by-event breakdown
 
@@ -146,10 +146,10 @@ Banner percentages lie; stacked totals tell the truth. The formula: **real disco
 
 **Example C — 11.11 flagship phone:** baseline $499, event $429. Store coupon −$30 → $399. Platform code −$25 (high-tier 11.11 codes) → $374. Coins −$3 → $371. Payment promo −$15 → **$356 final, 29% real discount** on a product that "never goes on sale."
 
-**The spreadsheet habit:** one row per planned item (baseline, event price, coupons, codes, final), one column for the event name. Fifteen minutes per event, and you'll never wonder whether a deal is real again. Skip any item whose real discount lands under 15% — normal price fluctuation covers that within weeks, and the [sales hub](/sales) will surface a better window soon.
+**The spreadsheet habit:** one row per planned item (baseline, event price, coupons, codes, final), one column for the event name. Fifteen minutes per event, and you'll never wonder whether a deal is real again. Skip any item whose real discount lands under 15% — normal price fluctuation covers that within weeks, and the [deals hub](/deals) will surface a better window soon.
 
 ## The gift overlay: buying presents on the calendar
 
 Nearly every gift occasion maps to an event — stop buying presents at full price. **Valentine's (February):** jewelry, beauty sets, and accessories in the post-New-Year lull; order three weeks out for customization time. **Mother's/Father's Day (spring):** home comforts, hobby gear, and fashion from the Anniversary Sale's long tail. **Birthdays:** maintain a rolling wishlist per person and strike at whatever event lands 3–4 weeks before the date — Summer for June birthdays, 11.11 for December ones. **Festive season (late year):** Black Friday for electronics gifts, Christmas sale for toys and decor, always with shipping-speed priority. **Weddings:** small appliances and home goods peak in Anniversary and 11.11 sales; group-gift with friends to cross the highest coupon tiers. The method is identical every time: person → wishlist → nearest preceding event → stacked checkout → tracked shipping with buffer days. Run every gift through this pipeline and the annual gifting budget drops 25–35% with zero perceived cheapness — recipients see thoughtful presents, never the calendar behind them. More gift-specific picks live in [Gift Guides](/category/gift-guides/) and the [deals hub](/deals/).
 
-Bookmark this calendar, check [sales](/sales) before every event, and browse [Online Shopping](/category/online-shopping/) for the tactics that turn good sales into great hauls.
+Bookmark this calendar, check [deals](/deals) before every event, and browse [Online Shopping](/category/online-shopping/) for the tactics that turn good sales into great hauls.
