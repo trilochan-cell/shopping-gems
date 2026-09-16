@@ -71,6 +71,14 @@
 html, body { overflow-x: clip; }
 a, button, summary { -webkit-tap-highlight-color: transparent; }
 
+/* News ticker */
+@keyframes sg-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-track { animation: sg-ticker 45s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+
 /* Editorial headlines — serif for page/section titles only */
 main h1, main h2, .prose-sg h3 { font-family: var(--font-display); }
 
