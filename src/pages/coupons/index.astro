@@ -1,23 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Sidebar from '../../components/Sidebar.astro';
 import { getCollection } from 'astro:content';
 
-const brands = await getCollection('brands');
+const brands = (await getCollection('brands')).sort((a, b) => a.data.name.localeCompare(b.data.name));
 const coupons = await getCollection('coupons');
 const today = new Date();
-const activeFor = (slug: string) => coupons.filter((c) => c.data.brand === slug && new Date(c.data.expiry) >= today);
-const totalActive = coupons.filter((c) => new Date(c.data.expiry) >= today);
+const activeFor = (slug: string) => coupons.filter((c) => c.data.brand === slug && (!c.data.expiry || new Date(c.data.expiry) >= today));
+const totalActive = coupons.filter((c) => !c.data.expiry || new Date(c.data.expiry) >= today);
 const totalCodes = totalActive.filter((c) => c.data.type === 'code');
 const totalDeals = totalActive.filter((c) => c.data.type === 'deal');
 const topOffer = (slug: string) => activeFor(slug).sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || (b.data.uses ?? 0) - (a.data.uses ?? 0))[0];
-
-// Sidebar (blog cross-links)
-const posts = (await getCollection('posts')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const recent = posts.slice(0, 4).map((p) => ({ slug: p.slug, title: p.data.title, pubDate: p.data.pubDate, image: p.data.image, imageAlt: p.data.imageAlt }));
-const categories = [...new Set(posts.map((p) => p.data.category))].map((c) => ({ name: c, slug: slugify(c), count: posts.filter((p) => p.data.category === c).length }));
-const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+// A–Z index for brand filtering (scales to hundreds of brands)
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map((L) => ({
+  letter: L,
+  count: brands.filter((b) => b.data.name.toUpperCase().startsWith(L)).length,
+}));
 ---
 <BaseLayout
   title="Brand Coupons, Promo Codes & Deals — Shopping Gems"
@@ -34,12 +31,33 @@ const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
     <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p class="font-display text-3xl font-bold text-brand">{totalCodes.length} + {totalDeals.length}</p><p class="mt-1 text-sm font-semibold text-slate-600">Codes + deals</p></div>
   </div>
 
-  <div class="mt-6 grid gap-8 pb-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-    <div class="grid min-w-0 content-start gap-[18px] sm:grid-cols-2">
-      {brands.map((b) => {
-        const top = topOffer(b.slug);
-        return (
-          <article class="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+  <!-- A–Z brand filter -->
+  <div class="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter brands by letter">
+      <button data-letter="ALL" aria-pressed="true" class="az-btn rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-bold text-white">All</button>
+      {letters.map(({ letter, count }) => (
+        <button
+          data-letter={letter}
+          aria-pressed="false"
+          disabled={count === 0}
+          title={count === 0 ? `No brands under ${letter}` : `${count} brand${count === 1 ? '' : 's'} under ${letter}`}
+          class:list={[
+            'az-btn rounded-lg px-3 py-1.5 text-sm font-bold',
+            count === 0
+              ? 'cursor-not-allowed text-slate-300'
+              : 'text-slate-700 hover:bg-slate-100 hover:text-brand',
+          ]}
+        >{letter}</button>
+      ))}
+    </div>
+    <p id="brand-count" class="mt-2.5 text-sm text-slate-500">Showing all {brands.length} brands</p>
+  </div>
+
+  <div id="brand-grid" class="mt-4 grid gap-[18px] pb-4 sm:grid-cols-2 lg:grid-cols-3">
+    {brands.map((b) => {
+      const top = topOffer(b.slug);
+      return (
+        <article data-letter={b.data.name.charAt(0).toUpperCase()} class="brand-card flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
             <div class="flex items-center gap-3">
               {b.data.logo ? (
                 <img src={b.data.logo} alt={`${b.data.name} logo`} width="48" height="48" loading="lazy" class="h-12 w-12 shrink-0 rounded-lg border border-slate-200 bg-white object-contain" />
@@ -60,13 +78,42 @@ const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
           </article>
         );
       })}
-    </div>
-    <Sidebar recent={recent} categories={categories} tags={tags} />
   </div>
+  <p id="brand-empty" class="hidden rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">No brands under this letter yet — check back as we add more stores.</p>
 
   <section class="prose-sg max-w-3xl pb-6">
     <h2>How Shopping Gems coupon pages work</h2>
     <p>Each brand page lists every active code and deal with its discount, expiry date, terms, and last-verified date. Codes reveal on click with one-tap copy; deals jump straight to the store. Expired codes stay listed for reference, and every outbound store link is marked for transparency.</p>
     <p>New here? Start with our <a href="/sales">sale calendars</a> and <a href="/deals">daily deals</a>, or search the <a href="/search">full guide archive</a>.</p>
   </section>
+
+  <script>
+    // A–Z filter (progressive enhancement — all brands visible without JS)
+    const azBtns = document.querySelectorAll('.az-btn:not([disabled])');
+    const cards = document.querySelectorAll('.brand-card');
+    const count = document.getElementById('brand-count');
+    const empty = document.getElementById('brand-empty');
+    const total = cards.length;
+    const paint = (btn) => {
+      azBtns.forEach((b) => {
+        const on = b === btn;
+        b.setAttribute('aria-pressed', String(on));
+        b.className = on
+          ? 'az-btn rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-bold text-white'
+          : 'az-btn rounded-lg px-3 py-1.5 text-sm font-bold text-slate-700 hover:bg-slate-100 hover:text-brand';
+      });
+    };
+    azBtns.forEach((btn) => btn.addEventListener('click', () => {
+      const L = btn.getAttribute('data-letter');
+      paint(btn);
+      let shown = 0;
+      cards.forEach((c) => {
+        const show = L === 'ALL' || c.getAttribute('data-letter') === L;
+        c.classList.toggle('hidden', !show);
+        if (show) shown++;
+      });
+      count.textContent = L === 'ALL' ? `Showing all ${total} brands` : `Showing ${shown} brand${shown === 1 ? '' : 's'} under “${L}”`;
+      empty.classList.toggle('hidden', shown > 0);
+    }));
+  </script>
 </BaseLayout>

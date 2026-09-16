@@ -69,8 +69,10 @@ numbered how-to · "Mistakes to avoid" where useful · FAQ lives in frontmatter
   images stays (text legibility).
 - **Serif headlines.** `main h1/h2` and `.prose-sg h3` are Georgia via CSS; cards,
   meta, buttons stay sans (Inter).
-- Reuse `PostCard` and `Sidebar` on every listing surface; keep the article
-  template structure (breadcrumb → card → author box → prev/next → related).
+- Reuse `PostCard` and `Sidebar` on every listing surface (exception: the
+  `/coupons` brand directory, which is full-width with an A–Z filter instead);
+  keep the article template structure (breadcrumb → card → author box →
+  prev/next → related).
 
 ## SEO standards (every page/post)
 
