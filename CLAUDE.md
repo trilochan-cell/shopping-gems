@@ -116,11 +116,14 @@ internal links on every post · FAQ block on guides.
   navigate directly; codes render via `<noscript>`.
 - Seed brands/coupons are **fictional placeholders** — replace with real,
   verified merchant data (never invent "verified" codes for real businesses).
-- **Bulk uploads:** share a filled `coupon-upload-template.csv` (rules in
-  `coupon-upload-guide.md`); import with
+- **Bulk uploads:** two files (or two spreadsheet sheets). `brand-upload-template.csv`
+  (one row per brand: profile + FAQ) first; `coupon-upload-template.csv`
+  (one row per offer, brand must already exist) anytime. The coupons file
+  carries one locked `brand_affiliate_url` — identical on every row, enforced
+  by the importer, synced into the brand file, never per-offer. Import with
   `python3 scripts/import-coupons.py file.csv --dry-run` then without the flag.
   The script validates every cell (row-numbered errors) and writes brand +
-  coupon files — then build + verify as usual.
+  coupon files — then build + verify as usual. Full rules: `coupon-upload-guide.md`.
 - Rebuild regularly: expiry filtering, "verified" dates, and sitemaps are
   build-time. Use `/new-brand` to scaffold a brand.
 

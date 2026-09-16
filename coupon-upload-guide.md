@@ -1,61 +1,66 @@
-# Coupon Upload Guide — send us brands in a spreadsheet
+# Coupon Upload Guide — send us brands in spreadsheets
 
-Fill **`coupon-upload-template.csv`** (one row = one offer, repeat the brand
-columns on every row of that brand) and share the file back. We run it through
-`scripts/import-coupons.py`, which validates every cell and generates the brand
-page + offer cards. Open the CSV in Excel/Sheets; save as CSV UTF-8.
+Two files, two jobs (or two sheets with the same columns — open in
+Excel/Sheets, save as CSV UTF-8):
 
-## Brand columns (repeat per row)
-
-| Column | Required | Rules & tips |
+| File | Purpose | When |
 |---|---|---|
-| `brand_slug` | yes | Lowercase, letters/numbers/hyphens, e.g. `ionbottles`. One brand = one slug, used in the page URL `/coupons/<slug>/`. |
-| `brand_name` | yes | Display name, e.g. `IonBottles`. |
+| `brand-upload-template.csv` | One row per **brand**: profile + FAQ | Once per brand, before its coupons |
+| `coupon-upload-template.csv` | One row per **offer**: coupons/deals | Anytime (brand must already exist) |
+
+Share the filled file(s) back. We run `scripts/import-coupons.py`, which
+validates every cell with row-numbered errors, generates the pages, builds,
+verifies, and pushes — then sends you the live `/coupons/<brand>/` URLs.
+
+## File 1 — brands: `brand-upload-template.csv`
+
+| Column | Required | Rules |
+|---|---|---|
+| `brand_slug` | yes | Lowercase letters/numbers/hyphens, e.g. `ionbottles`. Becomes the URL `/coupons/<slug>/`. |
+| `brand_name` | yes | Display name. |
 | `brand_tagline` | yes | One line, e.g. `Molecular hydrogen water bottles`. |
 | `brand_description` | yes | 2–3 sentences: what they sell, bestsellers, shipping/returns highlights. |
-| `brand_website` | yes | Full URL with `https://`. The merchant homepage (fallback link). |
-| `brand_affiliate_url` | no | Your tracked affiliate link for this brand (Impact, AvantLink, etc.). Used for **every** Go to Store / Get Deal / Show Code button when set; falls back to `brand_website`. |
-| `brand_logo` | no | Path like `/images/brands/acme.svg` (send the file too) or an `https://` image URL. Leave blank for an automatic letter tile. |
+| `brand_website` | yes | Full `https://` merchant homepage (fallback link). |
+| `brand_affiliate_url` | no | Tracked affiliate link, if you have one at brand time (coupons file can set it later). |
+| `brand_logo` | no | Path like `/images/brands/acme.svg` (send the file too). Blank = letter tile. |
 | `brand_category` | no | Defaults to `Shopping`. |
-| `brand_rating` / `brand_reviews` | no | **Only from a real source** (Trustpilot, Google). Leave blank if unknown — stars are hidden rather than invented. |
-| `brand_max_discount` | yes | Headline stat, e.g. `30%`. Must match your best listed offer. |
-| `brand_faq_q1`…`q5` + `brand_faq_a1`…`a5` | no | Up to 5 Q&As (how to use codes, stacking, expiry, returns). Plain text, no links, 40–60 words per answer. Fill as many pairs as you can; empty pairs are skipped. |
+| `brand_rating` / `brand_reviews` | no | Real sources only (Trustpilot, Google). Blank hides stars — never invented. |
+| `brand_max_discount` | yes | Headline stat, e.g. `30%`. Must match your best offer. |
+| `brand_faq_q1`…`q5` / `brand_faq_a1`…`a5` | no | Up to 5 Q&As, plain text, 40–60 words per answer. Empty pairs skipped. |
 
-## Offer columns (one row each)
+## File 2 — coupons: `coupon-upload-template.csv` (offers only)
 
-| Column | Required | Rules & tips |
+| Column | Required | Rules |
 |---|---|---|
+| `brand_slug` | yes | Must already exist (upload the brand first). |
+| `brand_affiliate_url` | yes | The **one locked affiliate URL for the brand** — identical on every row. The importer rejects the file if rows disagree, and refuses to overwrite a different URL already on file. No per-offer links: this value cannot be changed per coupon. |
 | `coupon_slug` | no | Auto-made from the title if blank. Must be unique. |
 | `coupon_title` | yes | e.g. `20% Off Sitewide`. |
-| `coupon_description` | yes | 1–2 sentences: what it applies to, minimums, key limits. |
-| `coupon_type` | yes | `code` (shopper types something) or `deal` (automatic price/drop). |
-| `coupon_badge` | yes | Left box text: `20% OFF`, `Free Shipping`, `$10 OFF`, `Free Gift`. |
-| `coupon_code` | if `code` | The exact code, e.g. `SAVE20`. **Only codes published by the merchant.** Never invent one. |
-| `coupon_affiliate_url` | no | Per-offer tracked link (overrides the brand link for this card only). Falls back to `brand_affiliate_url`, then `brand_website`. |
-| `coupon_expiry` | no | `YYYY-MM-DD`. Blank = ongoing offer (no fake deadline). Past dates auto-move to Expired on rebuild. |
-| `coupon_verified` | no | `YYYY-MM-DD` you last confirmed it works. Shown on the card — keep honest. |
-| `coupon_uses` | no | Shopper count from real data only; blank hides the counter. |
-| `coupon_terms` | no | Separate items with ` \| `, e.g. `Excludes gift cards \| One per order`. |
-| `coupon_labels` | no | Separate with ` \| `, e.g. `Sitewide \| Verified`. |
-| `coupon_featured` | no | `yes` pins it to the top (max 1–2 per brand). |
+| `coupon_description` | yes | 1–2 sentences: scope, minimums, key limits. |
+| `coupon_type` | yes | `code` (shopper types something) or `deal` (automatic). |
+| `coupon_badge` | yes | Left box: `20% OFF`, `Free Shipping`, `$10 OFF`, `Free Gift`. |
+| `coupon_code` | if `code` | Exact merchant-published code. **Never invented.** |
+| `coupon_expiry` | no | `YYYY-MM-DD`. Blank = ongoing (no fake deadline); past dates auto-move to Expired. |
+| `coupon_verified` | no | `YYYY-MM-DD` you confirmed it. Shown on the card — keep honest. |
+| `coupon_uses` | no | Real counts only; blank hides the counter. |
+| `coupon_terms` | no | Items separated with ` \| `, e.g. `Excludes gift cards \| One per order`. |
+| `coupon_labels` | no | Separated with ` \| `, e.g. `Sitewide \| Verified`. |
+| `coupon_featured` | no | `yes` pins to top (max 1–2 per brand). |
 
-## Example row (fictional)
+## Example coupon rows (fictional)
 
 ```
-brand_slug,brand_name,brand_tagline,brand_description,brand_website,brand_logo,brand_category,brand_rating,brand_reviews,brand_max_discount,brand_faq_q1,brand_faq_a1,coupon_slug,coupon_title,coupon_description,coupon_type,coupon_badge,coupon_code,coupon_expiry,coupon_verified,coupon_uses,coupon_terms,coupon_labels,coupon_featured
-acme-tea,Acme Tea,Small-batch loose-leaf tea,Acme Tea sells single-origin loose-leaf teas and brewing kits with free shipping over $40.,https://example.com/acme,,Food & Drink,,,,25%,How do I use an Acme Tea code?,Add tea to your cart and paste the code in the discount box at checkout before paying.,,,,,,,,,acme-tea-25-off,25% Off Your First Order,New customers save 25% on their first tea order.,code,25% OFF,WELCOME25,,2026-12-31,2026-09-16,,First orders only | Excludes gift cards,First Order | Verified,yes
+brand_slug,brand_affiliate_url,coupon_title,coupon_description,coupon_type,coupon_badge,coupon_code,coupon_expiry,coupon_verified,coupon_terms,coupon_labels,coupon_featured
+acme-tea,https://aff.example.net/acme,25% Off Your First Order,New customers save 25% on their first tea order.,code,25% OFF,WELCOME25,2026-12-31,2026-09-16,First orders only | Excludes gift cards,First Order | Verified,yes
+acme-tea,https://aff.example.net/acme,Free Shipping Over $40,Every $40+ tea order ships free.,deal,Free Shipping,,,2026-09-16,,Orders $40+ | Test store only,Free Shipping,
 ```
 
-## Rules that keep pages trustworthy
+Note the same affiliate URL on both rows — that is enforced, not coincidence.
+
+## Trust rules (non-negotiable)
 
 1. Real merchant data only — no invented codes, discounts, ratings, or dates.
-2. One promo code per `code` row; automatic prices are `deal` rows (no code).
+2. One locked affiliate URL per brand; per-offer overrides do not exist.
 3. `coupon_verified` = the day you actually checked it.
-4. No expiry? Leave it blank — the page shows "Ongoing" instead of a fake deadline.
-5. Send brand logos as separate files (square SVG/PNG preferred) and put the path in `brand_logo`.
-
-## What happens after you share the file
-
-We validate it (bad slugs, dates, missing codes, duplicates all get flagged by
-row number), generate the pages, build the site, verify schema + links, and push
-— then send you the live `/coupons/<brand>/` URLs to review.
+4. No expiry? Leave it blank — the page shows "Ongoing".
+5. Send logos as separate files (square SVG/PNG); put the path in `brand_logo`.
